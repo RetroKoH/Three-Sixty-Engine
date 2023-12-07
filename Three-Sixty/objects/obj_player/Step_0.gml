@@ -10,6 +10,9 @@ key_down	= keyboard_check(vk_down);
 x_spd = (key_right - key_left) * 3.0625;
 y_spd = (key_down - key_up) * 3.0625;
 
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
 // Wall Tile Collision
 var _spd = max(abs(x_spd), 1) * sign(x_spd);
 var _snap = TILE_SIZE - 1;
@@ -56,7 +59,13 @@ else if (_spd < 0) {
 	}
 }
 
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
 x_pos += x_spd;
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 // Floor Tile Collision
 _spd = max(abs(y_spd), 1) * sign(y_spd);
@@ -80,7 +89,7 @@ if (_spd > 0) {
 
 	// If an empty tile is found, regress, then extend
 	if !_height {
-		_shift = -16;
+		_shift = -TILE_SIZE;
 		_tile = tilemap_get(col_path, x div TILE_SIZE, (_pos + _shift) div TILE_SIZE);
 
 		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
@@ -95,7 +104,7 @@ if (_spd > 0) {
 
 		// If empty again, extend and get the next tile.
 		if !_height {
-			_shift = 16;
+			_shift = TILE_SIZE;
 			_tile = tilemap_get(col_path, x div TILE_SIZE, (_pos + _shift) div TILE_SIZE);
 
 			// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
@@ -111,9 +120,9 @@ if (_spd > 0) {
 	}
 	
 	// If full, regress and get the previous tile.
-	else if (_height == 16) {
+	else if (_height == TILE_SIZE) {
 		var _prev = [_tile, _index, _height];
-		_shift = -16;
+		_shift = -TILE_SIZE;
 		_tile = tilemap_get(col_path, x div TILE_SIZE, (_pos + _shift) div TILE_SIZE);
 
 		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
@@ -146,7 +155,13 @@ if (_spd > 0) {
 	}
 }
 
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
 y_pos += y_spd;
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 // Set positions on screen
 x = floor(x_pos);
