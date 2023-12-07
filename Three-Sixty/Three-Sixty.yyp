@@ -29,7 +29,6 @@
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"anglemap.bin","CopyToMask":-1,"filePath":"datafiles",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"anglemap.bin.bak","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"heightmap.bin","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"widthmap.bin","CopyToMask":-1,"filePath":"datafiles",},
   ],
@@ -43,6 +42,7 @@
     {"id":{"name":"spr_tile_collision","path":"sprites/spr_tile_collision/spr_tile_collision.yy",},},
     {"id":{"name":"tile_collision","path":"tilesets/tile_collision/tile_collision.yy",},},
     {"id":{"name":"mask_player","path":"sprites/mask_player/mask_player.yy",},},
+    {"id":{"name":"scr_load_col_maps","path":"scripts/scr_load_col_maps/scr_load_col_maps.yy",},},
     {"id":{"name":"room_test","path":"rooms/room_test/room_test.yy",},},
   ],
   "RoomOrderNodes": [

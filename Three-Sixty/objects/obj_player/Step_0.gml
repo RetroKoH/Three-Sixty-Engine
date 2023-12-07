@@ -10,7 +10,29 @@ key_down	= keyboard_check(vk_down);
 x_spd = (key_right - key_left) * 2;
 y_spd = (key_down - key_up) * 2;
 
-// NEW FUNCTION: Check for walls
+var _spd = max(abs(x_spd), 1) * sign(x_spd);
+	
+// If moving right
+if (_spd > 0) {
+	var _pos = (x_pos + col_push + _spd);	// Collision anchor
+
+	if tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE) > 0 {
+		// Snap to left side of tile
+		x_pos = (_pos div TILE_SIZE) * TILE_SIZE - (col_push + 1);
+		x_spd = 0;
+	}
+}
+
+// If moving left
+else if (_spd < 0) {
+	var _pos = (x_pos - col_push + _spd);	// Collision anchor
+		
+	if tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE) > 0 {
+		// Snap to right side of tile
+		x_pos = ((_pos div TILE_SIZE) * TILE_SIZE) + (TILE_SIZE - 1) + (col_push + 1);
+		x_spd = 0;
+	}
+}
 
 x_pos += x_spd;
 
