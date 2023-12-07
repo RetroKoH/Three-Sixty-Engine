@@ -19,34 +19,18 @@ var _snap = TILE_SIZE - 1;
 	
 // If moving right
 if (_spd > 0) {
+	var _shift = 0;
 	var _pos = (x_pos + col_push);	// Collision anchor
 	var _tile = tilemap_get_at_pixel(col_path, _pos, (y + 8));
-	var _index, _width, _shift = 0;
-	
-	// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-	if _tile == -1 {
-		_index = 0;
-		_width = 0;
-	}
-	else {
-		_index = tile_get_index(_tile);
-		_width = scr_tile_get_width(_index, y);
-	}
+	var _index = tile_get_index(_tile);
+	var _width = scr_tile_get_width(_index, y);
 
 	// If an empty tile is found, extend
 	if !_width {
 		_shift = TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_width = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_width = scr_tile_get_width(_index, y);
-		}
+		_index = tile_get_index(_tile);
+		_width = scr_tile_get_width(_index, y);
 	}
 
 	// If full, regress and get the previous tile.
@@ -54,16 +38,8 @@ if (_spd > 0) {
 		var _prev = [_tile, _index, _width];
 		_shift = -TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_width = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_width = scr_tile_get_width(_index, y);
-		}
+		_index = tile_get_index(_tile);
+		_width = scr_tile_get_width(_index, y);
 		
 		// Recall the full tile if no tile is found above.
 		if !_width {
@@ -87,34 +63,18 @@ if (_spd > 0) {
 
 // If moving left
 else if (_spd < 0) {
+	var _shift = 0;
 	var _pos = (x_pos - col_push);	// Collision anchor
 	var _tile = tilemap_get_at_pixel(col_path, _pos, (y + 8));
-	var _index, _width, _shift = 0;
-
-	// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-	if _tile == -1 {
-		_index = 0;
-		_width = 0;
-	}
-	else {
-		_index = tile_get_index(_tile);
-		_width = scr_tile_get_width(_index, y);
-	}
+	var _index = tile_get_index(_tile);
+	var _width = scr_tile_get_width(_index, y);
 
 	// If an empty tile is found, extend
 	if !_width {
 		_shift = -TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_width = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_width = scr_tile_get_width(_index, y);
-		}
+		_index = tile_get_index(_tile);
+		_width = scr_tile_get_width(_index, y);
 	}
 
 	// If full, regress and get the previous tile.
@@ -122,16 +82,8 @@ else if (_spd < 0) {
 		var _prev = [_tile, _index, _width];
 		_shift = TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_width = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_width = scr_tile_get_width(_index, y);
-		}
+		_index = tile_get_index(_tile);
+		_width = scr_tile_get_width(_index, y);
 		
 		// Recall the full tile if no tile is found above.
 		if !_width {
@@ -166,51 +118,27 @@ _spd = max(abs(y_spd), 1) * sign(y_spd);
 	
 // If moving down
 if (_spd > 0) {
+	var _shift = 0;
 	var _pos = (y_pos + col_height);	// Collision anchor
-	var _tile = tilemap_get_at_pixel(col_path, x, _pos);
-	var _index, _height, _shift = 0;
-	
-	// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-	if _tile == -1 {
-		_index = 0;
-		_height = 0;
-	}
-	else {
-		_index = tile_get_index(_tile);
-		_height = scr_tile_get_height(_index, x);
-	}
+	var _tile = scr_tile_find(col_path, x, _pos);
+	var _index = tile_get_index(_tile);
+	var _height = scr_tile_get_height(_index, x);
 
 	// If an empty tile is found, extend
 	if !_height {
 		_shift = TILE_SIZE;
-		_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_height = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_height = scr_tile_get_height(_index, x);
-		}
+		_tile = scr_tile_find(col_path, x, (_pos + _shift));
+		_index = tile_get_index(_tile);
+		_height = scr_tile_get_height(_index, x);
 	}
 	
 	// If full, regress and get the previous tile.
 	else if (_height == TILE_SIZE) {
 		var _prev = [_tile, _index, _height];
 		_shift = -TILE_SIZE;
-		_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_height = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_height = scr_tile_get_height(_index, x);
-		}
+		_tile = scr_tile_find(col_path, x, (_pos + _shift));
+		_index = tile_get_index(_tile);
+		_height = scr_tile_get_height(_index, x);
 		
 		// Recall the full tile if no tile is found above.
 		if !_height {
@@ -234,34 +162,18 @@ if (_spd > 0) {
 
 // If moving up
 else if (_spd < 0) {
+	var _shift = 0;
 	var _pos = (y_pos - col_height);	// Collision anchor
-	var _tile = tilemap_get_at_pixel(col_path, x, _pos);
-	var _index, _height, _shift = 0;
-	
-	// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-	if _tile == -1 {
-		_index = 0;
-		_height = 0;
-	}
-	else {
-		_index = tile_get_index(_tile);
-		_height = scr_tile_get_height(_index, x);
-	}
+	var _tile = scr_tile_find(col_path, x, _pos);
+	var _index = tile_get_index(_tile);
+	var _height = scr_tile_get_height(_index, x);
 
 	// If an empty tile is found, regress, then extend
 	if !_height {
 		_shift = -TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_height = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_height = scr_tile_get_height(_index, x);
-		}
+		_index = tile_get_index(_tile);
+		_height = scr_tile_get_height(_index, x);
 	}
 	
 	// If full, regress and get the previous tile.
@@ -269,16 +181,8 @@ else if (_spd < 0) {
 		var _prev = [_tile, _index, _height];
 		_shift = TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
-
-		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-		if _tile == -1 {
-			_index = 0;
-			_height = 0;
-		}
-		else {
-			_index = tile_get_index(_tile);
-			_height = scr_tile_get_height(_index, x);
-		}
+		_index = tile_get_index(_tile);
+		_height = scr_tile_get_height(_index, x);
 		
 		// Recall the full tile if no tile is found above.
 		if !_height {
