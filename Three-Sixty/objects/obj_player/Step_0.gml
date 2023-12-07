@@ -29,7 +29,7 @@ if (_spd > 0) {
 		// Check if we are at/within the tile's actual surface
 		if (_pos >= _surface) {
 			// Snap to left side of tile
-			x_pos = (_pos & ~_snap) - (col_push + 1);
+			x_pos = _surface - (col_push + 1);
 			x_spd = 0;
 		}
 	}
@@ -50,7 +50,7 @@ else if (_spd < 0) {
 		// Check if we are at/within the tile's actual surface
 		if (_pos <= _surface) {
 			// Snap to right side of tile
-			x_pos = (_pos & ~_snap) + _snap + (col_push + 1);
+			x_pos = _surface + (col_push + 1);
 			x_spd = 0;
 		}
 	}
