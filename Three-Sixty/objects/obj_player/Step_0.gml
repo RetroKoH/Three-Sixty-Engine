@@ -17,28 +17,71 @@ var _snap = TILE_SIZE - 1;
 // If moving right
 if (_spd > 0) {
 	var _pos = (x_pos + col_push + _spd);	// Collision anchor
+	var _tile = tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE);
 
-	if tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE) > 0 {
-		// Snap to left side of tile
-		x_pos = (_pos & ~_snap) - (col_push + 1);
-		x_spd = 0;
+	if _tile > 0 {
+		var _index = tile_get_index(_tile);
+		var _width = scr_tile_get_width(_index, y);
+
+		// Get the actual left side of the tile
+		var _surface = (_pos & ~_snap) + (TILE_SIZE - _width);
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos >= _surface) {
+			// Snap to left side of tile
+			x_pos = (_pos & ~_snap) - (col_push + 1);
+			x_spd = 0;
+		}
 	}
 }
 
 // If moving left
 else if (_spd < 0) {
 	var _pos = (x_pos - col_push + _spd);	// Collision anchor
+	var _tile = tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE);
 		
-	if tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE) > 0 {
-		// Snap to right side of tile
-		x_pos = (_pos & ~_snap) + _snap + (col_push + 1);
-		x_spd = 0;
+	if _tile > 0 {
+		var _index = tile_get_index(_tile);
+		var _width = scr_tile_get_width(_index, y);
+		
+		// Get the actual left side of the tile
+		var _surface = (_pos & ~_snap) + _snap + (TILE_SIZE - _width);
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos <= _surface) {
+			// Snap to right side of tile
+			x_pos = (_pos & ~_snap) + _snap + (col_push + 1);
+			x_spd = 0;
+		}
 	}
 }
 
 x_pos += x_spd;
 
-// NEW FUNCTION: Check for floors/ceilings
+// Floor Tile Collision
+_spd = max(abs(y_spd), 1) * sign(y_spd);
+_snap = TILE_SIZE - 1;
+	
+// If moving down
+if (_spd > 0) {
+	var _pos = (y_pos + col_height + _spd);	// Collision anchor
+	var _tile = tilemap_get(col_path, x div TILE_SIZE, _pos div TILE_SIZE);
+
+	if _tile > 0 {
+		var _index = tile_get_index(_tile);
+		var _height = scr_tile_get_height(_index, x);
+
+		// Get the actual top side of the tile
+		var _surface = (_pos & ~_snap) + (TILE_SIZE - _height);
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos >= _surface) {
+			// Snap to top side of tile
+			y_pos = _surface - (col_height + 1);
+			y_spd = 0;
+		}
+	}
+}
 
 y_pos += y_spd;
 

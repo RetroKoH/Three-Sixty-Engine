@@ -40,6 +40,7 @@
   "resources": [
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"spr_tile_collision","path":"sprites/spr_tile_collision/spr_tile_collision.yy",},},
+    {"id":{"name":"scr_tile_get_data","path":"scripts/scr_tile_get_data/scr_tile_get_data.yy",},},
     {"id":{"name":"tile_collision","path":"tilesets/tile_collision/tile_collision.yy",},},
     {"id":{"name":"spr_debug_line","path":"sprites/spr_debug_line/spr_debug_line.yy",},},
     {"id":{"name":"spr_debug_center","path":"sprites/spr_debug_center/spr_debug_center.yy",},},

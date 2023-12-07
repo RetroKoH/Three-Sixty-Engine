@@ -16,10 +16,10 @@
       ],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},
     {"resourceType":"GMRTileLayer","resourceVersion":"1.1","name":"Collision","depth":100,"effectEnabled":true,"effectType":"_filter_tintfilter","gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"properties":[
         {"name":"g_TintCol","type":1,"value":"#FFFFA411",},
-      ],"tiles":{"SerialiseHeight":15,"SerialiseWidth":53,"TileCompressedData":[
+      ],"tiles":{"SerialiseHeight":17,"SerialiseWidth":53,"TileCompressedData":[
 1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,
 1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,1,1,
--25,-2147483648,1,1,-26,-2147483648,1,1,-25,-2147483648,1,1,-26,-2147483648,],"TileDataFormat":1,},"tilesetId":{"name":"tile_collision","path":"tilesets/tile_collision/tile_collision.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
+-22,-2147483648,-3,0,1,1,-26,-2147483648,17,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,15,16,-10,1,-132,-2147483648,],"TileDataFormat":1,},"tilesetId":{"name":"tile_collision","path":"tilesets/tile_collision/tile_collision.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"resourceType":"GMRBackgroundLayer","resourceVersion":"1.0","name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"properties":[],"spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
   "parent": {
@@ -35,7 +35,7 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "roomSettings": {
-    "Height": 240,
+    "Height": 272,
     "inheritRoomSettings": false,
     "persistent": false,
     "Width": 848,
