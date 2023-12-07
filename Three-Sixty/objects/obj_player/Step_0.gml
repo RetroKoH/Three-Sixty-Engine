@@ -19,7 +19,7 @@ var _snap = TILE_SIZE - 1;
 	
 // If moving right
 if (_spd > 0) {
-	var _pos = (x_pos + col_push + _spd);	// Collision anchor
+	var _pos = (x_pos + col_push);	// Collision anchor
 	var _tile = tilemap_get_at_pixel(col_path, _pos, (y + 8));
 	var _index, _width, _shift = 0;
 	
@@ -33,9 +33,9 @@ if (_spd > 0) {
 		_width = scr_tile_get_width(_index, y);
 	}
 
-	// If an empty tile is found, regress, then extend
+	// If an empty tile is found, extend
 	if !_width {
-		_shift = -TILE_SIZE;
+		_shift = TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
 
 		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
@@ -46,22 +46,6 @@ if (_spd > 0) {
 		else {
 			_index = tile_get_index(_tile);
 			_width = scr_tile_get_width(_index, y);
-		}
-
-		// If empty again, extend and get the next tile.
-		if !_width {
-			_shift = TILE_SIZE;
-			_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
-
-			// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-			if _tile == -1 {
-				_index = 0;
-				_width = 0;
-			}
-			else {
-				_index = tile_get_index(_tile);
-				_width = scr_tile_get_width(_index, y);
-			}
 		}
 	}
 
@@ -94,7 +78,7 @@ if (_spd > 0) {
 	var _surface = ((_pos + _shift) & ~_snap) + (TILE_SIZE - _width);
 
 	// Check if we are at/within the tile's actual surface
-	if (_pos >= _surface) {
+	if (_pos >= _surface) or (_pos + _spd >= _surface) {
 		// Snap to left side of tile
 		x_pos = _surface - (col_push + 1);
 		x_spd = 0;
@@ -103,7 +87,7 @@ if (_spd > 0) {
 
 // If moving left
 else if (_spd < 0) {
-	var _pos = (x_pos - col_push + _spd);	// Collision anchor
+	var _pos = (x_pos - col_push);	// Collision anchor
 	var _tile = tilemap_get_at_pixel(col_path, _pos, (y + 8));
 	var _index, _width, _shift = 0;
 
@@ -117,9 +101,9 @@ else if (_spd < 0) {
 		_width = scr_tile_get_width(_index, y);
 	}
 
-	// If an empty tile is found, regress, then extend
+	// If an empty tile is found, extend
 	if !_width {
-		_shift = TILE_SIZE;
+		_shift = -TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
 
 		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
@@ -130,22 +114,6 @@ else if (_spd < 0) {
 		else {
 			_index = tile_get_index(_tile);
 			_width = scr_tile_get_width(_index, y);
-		}
-
-		// If empty again, extend and get the next tile.
-		if !_width {
-			_shift = -TILE_SIZE;
-			_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
-
-			// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-			if _tile == -1 {
-				_index = 0;
-				_width = 0;
-			}
-			else {
-				_index = tile_get_index(_tile);
-				_width = scr_tile_get_width(_index, y);
-			}
 		}
 	}
 
@@ -178,7 +146,7 @@ else if (_spd < 0) {
 	var _surface = ((_pos + _shift) & ~_snap) + _snap - (TILE_SIZE - _width);
 
 	// Check if we are at/within the tile's actual surface
-	if (_pos <= _surface) {
+	if (_pos <= _surface) or (_pos + _spd <= _surface) {
 		// Snap to right side of tile
 		x_pos = _surface + (col_push + 1);
 		x_spd = 0;
@@ -198,7 +166,7 @@ _spd = max(abs(y_spd), 1) * sign(y_spd);
 	
 // If moving down
 if (_spd > 0) {
-	var _pos = (y_pos + col_height + _spd);	// Collision anchor
+	var _pos = (y_pos + col_height);	// Collision anchor
 	var _tile = tilemap_get_at_pixel(col_path, x, _pos);
 	var _index, _height, _shift = 0;
 	
@@ -212,9 +180,9 @@ if (_spd > 0) {
 		_height = scr_tile_get_height(_index, x);
 	}
 
-	// If an empty tile is found, regress, then extend
+	// If an empty tile is found, extend
 	if !_height {
-		_shift = -TILE_SIZE;
+		_shift = TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
 
 		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
@@ -225,22 +193,6 @@ if (_spd > 0) {
 		else {
 			_index = tile_get_index(_tile);
 			_height = scr_tile_get_height(_index, x);
-		}
-
-		// If empty again, extend and get the next tile.
-		if !_height {
-			_shift = TILE_SIZE;
-			_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
-
-			// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-			if _tile == -1 {
-				_index = 0;
-				_height = 0;
-			}
-			else {
-				_index = tile_get_index(_tile);
-				_height = scr_tile_get_height(_index, x);
-			}
 		}
 	}
 	
@@ -273,7 +225,7 @@ if (_spd > 0) {
 	var _surface = ((_pos + _shift) & ~_snap) + (TILE_SIZE - _height);
 
 	// Check if we are at/within the tile's actual surface
-	if (_pos >= _surface) {
+	if (_pos >= _surface) or (_pos + _spd >= _surface) {
 		// Snap to top side of tile
 		y_pos = _surface - (col_height + 1);
 		y_spd = 0;
@@ -282,7 +234,7 @@ if (_spd > 0) {
 
 // If moving up
 else if (_spd < 0) {
-	var _pos = (y_pos - col_height + _spd);	// Collision anchor
+	var _pos = (y_pos - col_height);	// Collision anchor
 	var _tile = tilemap_get_at_pixel(col_path, x, _pos);
 	var _index, _height, _shift = 0;
 	
@@ -298,7 +250,7 @@ else if (_spd < 0) {
 
 	// If an empty tile is found, regress, then extend
 	if !_height {
-		_shift = TILE_SIZE;
+		_shift = -TILE_SIZE;
 		_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
 
 		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
@@ -309,22 +261,6 @@ else if (_spd < 0) {
 		else {
 			_index = tile_get_index(_tile);
 			_height = scr_tile_get_height(_index, x);
-		}
-
-		// If empty again, extend and get the next tile.
-		if !_height {
-			_shift = -TILE_SIZE;
-			_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
-
-			// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
-			if _tile == -1 {
-				_index = 0;
-				_height = 0;
-			}
-			else {
-				_index = tile_get_index(_tile);
-				_height = scr_tile_get_height(_index, x);
-			}
 		}
 	}
 	
@@ -357,7 +293,7 @@ else if (_spd < 0) {
 	var _surface = ((_pos + _shift) & ~_snap) + _snap - (TILE_SIZE - _height);
 
 	// Check if we are at/within the tile's actual surface
-	if (_pos <= _surface) {
+	if (_pos <= _surface) or (_pos + _spd <= _surface) {
 		// Snap to bottom side of tile
 		y_pos = _surface + (col_height + 1);
 		y_spd = 0;
