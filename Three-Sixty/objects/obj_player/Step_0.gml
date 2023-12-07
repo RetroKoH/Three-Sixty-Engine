@@ -21,20 +21,83 @@ var _snap = TILE_SIZE - 1;
 if (_spd > 0) {
 	var _pos = (x_pos + col_push + _spd);	// Collision anchor
 	var _tile = tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE);
+	var _index, _width, _shift = 0;
+	
+	// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+	if _tile == -1 {
+		_index = 0;
+		_width = 0;
+	}
+	else {
+		_index = tile_get_index(_tile);
+		_width = scr_tile_get_width(_index, y);
+	}
 
-	if _tile > 0 {
-		var _index = tile_get_index(_tile);
-		var _width = scr_tile_get_width(_index, y);
+	// If an empty tile is found, regress, then extend
+	if !_width {
+		_shift = -TILE_SIZE;
+		_tile = tilemap_get(col_path, (_pos + _shift) div TILE_SIZE, (y + 8) div TILE_SIZE);
 
-		// Get the actual left side of the tile
-		var _surface = (_pos & ~_snap) + (TILE_SIZE - _width);
-
-		// Check if we are at/within the tile's actual surface
-		if (_pos >= _surface) {
-			// Snap to left side of tile
-			x_pos = _surface - (col_push + 1);
-			x_spd = 0;
+		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+		if _tile == -1 {
+			_index = 0;
+			_width = 0;
 		}
+		else {
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		}
+
+		// If empty again, extend and get the next tile.
+		if !_width {
+			_shift = TILE_SIZE;
+			_tile = tilemap_get(col_path, (_pos + _shift) div TILE_SIZE, (y + 8) div TILE_SIZE);
+
+			// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+			if _tile == -1 {
+				_index = 0;
+				_width = 0;
+			}
+			else {
+				_index = tile_get_index(_tile);
+				_width = scr_tile_get_width(_index, y);
+			}
+		}
+	}
+
+	// If full, regress and get the previous tile.
+	else if (_width == TILE_SIZE) {
+		var _prev = [_tile, _index, _width];
+		_shift = -TILE_SIZE;
+		_tile = tilemap_get(col_path, (_pos + _shift) div TILE_SIZE, (y + 8) div TILE_SIZE);
+
+		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+		if _tile == -1 {
+			_index = 0;
+			_width = 0;
+		}
+		else {
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		}
+		
+		// Recall the full tile if no tile is found above.
+		if !_width {
+			_shift = 0;
+			_tile = _prev[0];
+			_index = _prev[1]; 
+			_width = _prev[2];
+		}
+	}
+
+	// Get the actual left side of the tile
+	var _surface = ((_pos + _shift) & ~_snap) + (TILE_SIZE - _width);
+
+	// Check if we are at/within the tile's actual surface
+	if (_pos >= _surface) {
+		// Snap to left side of tile
+		x_pos = _surface - (col_push + 1);
+		x_spd = 0;
 	}
 }
 
@@ -42,20 +105,83 @@ if (_spd > 0) {
 else if (_spd < 0) {
 	var _pos = (x_pos - col_push + _spd);	// Collision anchor
 	var _tile = tilemap_get(col_path, _pos div TILE_SIZE, (y + 8) div TILE_SIZE);
-		
-	if _tile > 0 {
-		var _index = tile_get_index(_tile);
-		var _width = scr_tile_get_width(_index, y);
-		
-		// Get the actual left side of the tile
-		var _surface = (_pos & ~_snap) + _snap + (TILE_SIZE - _width);
+	var _index, _width, _shift = 0;
 
-		// Check if we are at/within the tile's actual surface
-		if (_pos <= _surface) {
-			// Snap to right side of tile
-			x_pos = _surface + (col_push + 1);
-			x_spd = 0;
+	// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+	if _tile == -1 {
+		_index = 0;
+		_width = 0;
+	}
+	else {
+		_index = tile_get_index(_tile);
+		_width = scr_tile_get_width(_index, y);
+	}
+
+	// If an empty tile is found, regress, then extend
+	if !_width {
+		_shift = TILE_SIZE;
+		_tile = tilemap_get(col_path, (_pos + _shift) div TILE_SIZE, (y + 8) div TILE_SIZE);
+
+		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+		if _tile == -1 {
+			_index = 0;
+			_width = 0;
 		}
+		else {
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		}
+
+		// If empty again, extend and get the next tile.
+		if !_width {
+			_shift = -TILE_SIZE;
+			_tile = tilemap_get(col_path, (_pos + _shift) div TILE_SIZE, (y + 8) div TILE_SIZE);
+
+			// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+			if _tile == -1 {
+				_index = 0;
+				_width = 0;
+			}
+			else {
+				_index = tile_get_index(_tile);
+				_width = scr_tile_get_width(_index, y);
+			}
+		}
+	}
+
+	// If full, regress and get the previous tile.
+	else if (_width == TILE_SIZE) {
+		var _prev = [_tile, _index, _width];
+		_shift = TILE_SIZE;
+		_tile = tilemap_get(col_path, (_pos + _shift) div TILE_SIZE, (y + 8) div TILE_SIZE);
+
+		// if TILE == -1, an error occurred (likely off screen). Hard-set empty tile values
+		if _tile == -1 {
+			_index = 0;
+			_width = 0;
+		}
+		else {
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		}
+		
+		// Recall the full tile if no tile is found above.
+		if !_width {
+			_shift = 0;
+			_tile = _prev[0];
+			_index = _prev[1]; 
+			_width = _prev[2];
+		}
+	}
+
+	// Get the actual right side of the tile
+	var _surface = ((_pos + _shift) & ~_snap) + _snap - (TILE_SIZE - _width);
+
+	// Check if we are at/within the tile's actual surface
+	if (_pos <= _surface) {
+		// Snap to right side of tile
+		x_pos = _surface + (col_push + 1);
+		x_spd = 0;
 	}
 }
 
@@ -69,7 +195,6 @@ x_pos += x_spd;
 
 // Floor Tile Collision
 _spd = max(abs(y_spd), 1) * sign(y_spd);
-_snap = TILE_SIZE - 1;
 	
 // If moving down
 if (_spd > 0) {
@@ -233,7 +358,7 @@ else if (_spd < 0) {
 
 	// Check if we are at/within the tile's actual surface
 	if (_pos <= _surface) {
-		// Snap to top side of tile
+		// Snap to bottom side of tile
 		y_pos = _surface + (col_height + 1);
 		y_spd = 0;
 	}
