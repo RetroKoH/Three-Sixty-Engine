@@ -1,5 +1,15 @@
 /// @description Init Player
 
-col_width = 9
-col_height = $13	// (19)
-col_push = 10		// constant
+key_left	= false;
+key_right	= false;
+key_up		= false;
+key_down	= false;
+
+x_pos		= x;
+y_pos		= y;
+x_spd		= 0;
+y_spd		= 0;
+
+col_width	= 9;
+col_height	= $13;	// (19)
+col_push	= 10;	// constant
