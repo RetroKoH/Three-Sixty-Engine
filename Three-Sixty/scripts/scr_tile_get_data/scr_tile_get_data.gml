@@ -1,3 +1,191 @@
+///@function scr_check_walls()
+function scr_check_walls() {
+	var _spd = max(abs(x_spd), 1) * sign(x_spd);
+	var _snap = TILE_SIZE - 1;
+
+	// If moving right
+	if (_spd > 0) {
+		var _shift = 0;
+		var _pos = (x_pos + col_push);	// Collision anchor
+		var _tile = tilemap_get_at_pixel(col_path, _pos, (y + 8));
+		var _index = tile_get_index(_tile);
+		var _width = scr_tile_get_width(_index, y);
+
+		// If an empty tile is found, extend
+		if !_width {
+			_shift = TILE_SIZE;
+			_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		}
+
+		// If full, regress and get the previous tile.
+		else if (_width == TILE_SIZE) {
+			var _prev = [_tile, _index, _width];
+			_shift = -TILE_SIZE;
+			_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		
+			// Recall the full tile if no tile is found above.
+			if !_width {
+				_shift = 0;
+				_tile = _prev[0];
+				_index = _prev[1]; 
+				_width = _prev[2];
+			}
+		}
+
+		// Get the actual left side of the tile
+		var _surface = ((_pos + _shift) & ~_snap) + (TILE_SIZE - _width);
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos >= _surface) or (_pos + _spd >= _surface) {
+			// Snap to left side of tile
+			x_pos = _surface - (col_push + 1);
+			x_spd = 0;
+		}
+	}
+
+	// If moving left
+	else if (_spd < 0) {
+		var _shift = 0;
+		var _pos = (x_pos - col_push);	// Collision anchor
+		var _tile = tilemap_get_at_pixel(col_path, _pos, (y + 8));
+		var _index = tile_get_index(_tile);
+		var _width = scr_tile_get_width(_index, y);
+
+		// If an empty tile is found, extend
+		if !_width {
+			_shift = -TILE_SIZE;
+			_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		}
+
+		// If full, regress and get the previous tile.
+		else if (_width == TILE_SIZE) {
+			var _prev = [_tile, _index, _width];
+			_shift = TILE_SIZE;
+			_tile = tilemap_get_at_pixel(col_path, (_pos + _shift), (y + 8));
+			_index = tile_get_index(_tile);
+			_width = scr_tile_get_width(_index, y);
+		
+			// Recall the full tile if no tile is found above.
+			if !_width {
+				_shift = 0;
+				_tile = _prev[0];
+				_index = _prev[1]; 
+				_width = _prev[2];
+			}
+		}
+
+		// Get the actual right side of the tile
+		var _surface = ((_pos + _shift) & ~_snap) + _snap - (TILE_SIZE - _width);
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos <= _surface) or (_pos + _spd <= _surface) {
+			// Snap to right side of tile
+			x_pos = _surface + (col_push + 1);
+			x_spd = 0;
+		}
+	}
+}
+
+///@function scr_check_floors()
+function scr_check_floors(){
+	var _spd = max(abs(y_spd), 1) * sign(y_spd);
+	var _snap = TILE_SIZE - 1;
+
+	// If moving down
+	if (_spd > 0) {
+		var _shift = 0;
+		var _pos = (y_pos + col_height);	// Collision anchor
+		var _tile = scr_tile_find(col_path, x, _pos);
+		var _index = tile_get_index(_tile);
+		var _height = scr_tile_get_height(_index, x);
+
+		// If an empty tile is found, extend
+		if !_height {
+			_shift = TILE_SIZE;
+			_tile = scr_tile_find(col_path, x, (_pos + _shift));
+			_index = tile_get_index(_tile);
+			_height = scr_tile_get_height(_index, x);
+		}
+	
+		// If full, regress and get the previous tile.
+		else if (_height == TILE_SIZE) {
+			var _prev = [_tile, _index, _height];
+			_shift = -TILE_SIZE;
+			_tile = scr_tile_find(col_path, x, (_pos + _shift));
+			_index = tile_get_index(_tile);
+			_height = scr_tile_get_height(_index, x);
+		
+			// Recall the full tile if no tile is found above.
+			if !_height {
+				_shift = 0;
+				_tile = _prev[0];
+				_index = _prev[1]; 
+				_height = _prev[2];
+			}
+		}
+
+		// Get the actual top side of the tile
+		var _surface = ((_pos + _shift) & ~_snap) + (TILE_SIZE - _height);
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos >= _surface) or (_pos + _spd >= _surface) {
+			// Snap to top side of tile
+			y_pos = _surface - (col_height + 1);
+			y_spd = 0;
+		}
+	}
+
+	// If moving up
+	else if (_spd < 0) {
+		var _shift = 0;
+		var _pos = (y_pos - col_height);	// Collision anchor
+		var _tile = scr_tile_find(col_path, x, _pos);
+		var _index = tile_get_index(_tile);
+		var _height = scr_tile_get_height(_index, x);
+
+		// If an empty tile is found, regress, then extend
+		if !_height {
+			_shift = -TILE_SIZE;
+			_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
+			_index = tile_get_index(_tile);
+			_height = scr_tile_get_height(_index, x);
+		}
+	
+		// If full, regress and get the previous tile.
+		else if (_height == TILE_SIZE) {
+			var _prev = [_tile, _index, _height];
+			_shift = TILE_SIZE;
+			_tile = tilemap_get_at_pixel(col_path, x, (_pos + _shift));
+			_index = tile_get_index(_tile);
+			_height = scr_tile_get_height(_index, x);
+		
+			// Recall the full tile if no tile is found above.
+			if !_height {
+				_shift = 0;
+				_tile = _prev[0];
+				_index = _prev[1]; 
+				_height = _prev[2];
+			}
+		}
+
+		// Get the actual bottom side of the tile
+		var _surface = ((_pos + _shift) & ~_snap) + _snap - (TILE_SIZE - _height);
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos <= _surface) or (_pos + _spd <= _surface) {
+			// Snap to bottom side of tile
+			y_pos = _surface + (col_height + 1);
+			y_spd = 0;
+		}
+	}
+}
+
 ///@function scr_tile_find(collision path, x, y)
 function scr_tile_find(_col_path, _x, _y){
 	var _tile = tilemap_get_at_pixel(_col_path, _x, _y);
