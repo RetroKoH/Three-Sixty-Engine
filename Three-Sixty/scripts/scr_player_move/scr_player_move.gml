@@ -40,7 +40,7 @@ function scr_player_move_ground(){
 
 ///@function scr_player_move_air()
 function scr_player_move_air(){
-	var _dir = (_right - _left);
+	var _dir = (key_right - key_left);
 
 	// Pressing Left
 	if _dir == -1 {

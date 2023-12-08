@@ -21,6 +21,8 @@ for (var _i = 0; _i < 256; _i++) {
 	global.angle_data[_i] = {
 		angle : _ang,
 		sine : dsin(_ang),
-		angle : dcos(_ang)
+		cosine : dcos(_ang)
 	}
 }
+
+instance_create_layer(320, 164, "Instances", obj_player);
