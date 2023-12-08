@@ -74,14 +74,14 @@ function scr_tile_find_hor(_col_path, _x, _y, _dir){
 	var _shift = TILE_SIZE * _dir;
 	var _tile = scr_tile_find(_col_path, _x, _y);
 	var _index = tile_get_index(_tile);
-	var _width = scr_tile_get_width(_index, _y);
+	var _width = scr_tile_get_width(_tile, _index, _y);
 
 	// If an empty tile is found, extend
 	if !_width {
 		_x += _shift;
 		_tile = scr_tile_find(_col_path, _x, _y);
 		_index = tile_get_index(_tile);
-		_width = scr_tile_get_width(_index, _y);
+		_width = scr_tile_get_width(_tile, _index, _y);
 	}
 
 	// If full, regress and get the previous tile.
@@ -90,7 +90,7 @@ function scr_tile_find_hor(_col_path, _x, _y, _dir){
 		_x -= _shift;
 		_tile = scr_tile_find(_col_path, _x, _y);
 		_index = tile_get_index(_tile);
-		_width = scr_tile_get_width(_index, _y);
+		_width = scr_tile_get_width(_tile, _index, _y);
 		
 		// Recall the full tile if no tile is found above.
 		if !_width {
@@ -115,14 +115,14 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 	var _shift = TILE_SIZE * _dir;
 	var _tile = scr_tile_find(_col_path, _x, _y);
 	var _index = tile_get_index(_tile);
-	var _height = scr_tile_get_height(_index, _x);
+	var _height = scr_tile_get_height(_tile, _index, _x);
 
 	// If an empty tile is found, extend
 	if !_height {
 		_y += _shift;
 		_tile = scr_tile_find(_col_path, _x, _y);
 		_index = tile_get_index(_tile);
-		_height = scr_tile_get_height(_index, _x);
+		_height = scr_tile_get_height(_tile, _index, _x);
 	}
 	
 	// If full, regress and get the previous tile.
@@ -131,7 +131,7 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 		_y -= _shift;
 		_tile = scr_tile_find(_col_path, _x, _y);
 		_index = tile_get_index(_tile);
-		_height = scr_tile_get_height(_index, _x);
+		_height = scr_tile_get_height(_tile, _index, _x);
 		
 		// Recall the full tile if no tile is found above.
 		if !_height {
@@ -167,16 +167,22 @@ function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir){
 	return _surface;
 }
 
-///@function scr_tile_get_height(index, x)
-function scr_tile_get_height(_index, _x){
+///@function scr_tile_get_height(tile data, index, x)
+function scr_tile_get_height(_tile, _index, _x){
 	var _column = _x & (TILE_SIZE - 1);
 
-	return global.tile_heights[_index & $1F][_column & (TILE_SIZE - 1)];
+	if tile_get_mirror(_tile)
+		_column = (~_x) & (TILE_SIZE - 1);
+
+	return global.tile_heights[_index & $1F][_column];
 }
 
-///@function scr_tile_get_width(index, y)
-function scr_tile_get_width(_index, _y){
+///@function scr_tile_get_width(tile data, index, y)
+function scr_tile_get_width(_tile, _index, _y){
 	var _row = _y & (TILE_SIZE - 1);
 
-	return global.tile_widths[_index & $1F][_row & (TILE_SIZE - 1)];
+	if tile_get_flip(_tile)
+		_row = (~_y) & (TILE_SIZE - 1);
+
+	return global.tile_widths[_index & $1F][_row];
 }
