@@ -37,6 +37,7 @@ function scr_player_check_floors_air(){
 	if (_pos >= _surface) or (_pos + _spd >= _surface) {
 		y_pos = _surface - (col_height + 1);
 		in_air = false;
+		jumping = false;
 		y_spd = 0;
 		col_angle = _tile[1];		// NEW
 	}

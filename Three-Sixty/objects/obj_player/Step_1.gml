@@ -3,10 +3,11 @@
 col_angle_data = global.angle_data[col_angle];
 
 // Keyboard checks
-key_left	= keyboard_check(vk_left);
-key_right	= keyboard_check(vk_right);
-key_up		= keyboard_check(vk_up);
-key_down	= keyboard_check(vk_down);
+key_left	= keyboard_check(ord("A"));
+key_right	= keyboard_check(ord("D"));
+key_up		= keyboard_check(ord("W"));
+key_down	= keyboard_check(ord("S"));
+key_jump	= keyboard_check(ord("J"));
 
 if DEBUG {
 	// Apply speeds
@@ -24,6 +25,7 @@ if DEBUG {
 
 else {
 	if (in_air) {
+		scr_player_jump_height();
 		scr_player_move_air();
 		scr_check_walls();
 		x_pos += x_spd;
@@ -32,14 +34,16 @@ else {
 		scr_player_check_floors_air();	// New ground check to exit air state
 	}
 
-	else {	
-		scr_player_move_ground();
-		scr_check_walls();
+	else {
+		if !scr_player_jump(){
+			scr_player_move_ground();
+			scr_check_walls();
 
-		// Use speeds to move player
-		x_pos += x_spd;
-		y_pos += y_spd;
+			// Use speeds to move player
+			x_pos += x_spd;
+			y_pos += y_spd;
 
-		scr_player_check_floors_ground();
+			scr_player_check_floors_ground();
+		}
 	}
 }

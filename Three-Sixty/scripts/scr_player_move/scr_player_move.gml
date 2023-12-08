@@ -35,7 +35,6 @@ function scr_player_move_ground(){
 	// Use inertia and angle data to obtain proper speeds
 	x_spd = inertia * col_angle_data.cosine;
 	y_spd = inertia * -(col_angle_data.sine);
-
 }
 
 ///@function scr_player_move_air()
@@ -46,7 +45,7 @@ function scr_player_move_air(){
 	if _dir == -1 {
 		if (x_spd > -top_spd) // if moving under top speed
 		{
-			x_spd -= accel_air; // accelerate
+			x_spd -= accel * 2; // accelerate
 			if (x_spd < -top_spd)
 				x_spd = -top_spd; // impose top speed limit
 		}
@@ -56,7 +55,7 @@ function scr_player_move_air(){
 	else if _dir == 1 {
 		if (x_spd < top_spd) // if moving under top speed
 		{
-			x_spd += accel_air; // accelerate
+			x_spd += accel * 2; // accelerate
 			if (x_spd > top_spd)
 				x_spd = top_spd; // impose top speed limit
 		}
