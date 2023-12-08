@@ -102,11 +102,19 @@ function scr_tile_find_hor(_col_path, _x, _y, _dir){
 	}
 	
 	// Find actual tile surface (if dir == 1, left side. if dir == -1, right side)
-	if _dir == 1
-		return (_x & ~_snap) + (TILE_SIZE - _width);
+	if _dir == 1 {
+		if tile_get_mirror(_tile) and _width
+			_width = TILE_SIZE;					// Handle both sides of the tile correctly.
 
-	else
+		return (_x & ~_snap) + (TILE_SIZE - _width);
+	}
+
+	else {
+		if !tile_get_mirror(_tile) and _width
+			_width = TILE_SIZE;					// Handle both sides of the tile correctly.
+
 		return (_x & ~_snap) + _snap - (TILE_SIZE - _width);
+	}
 }
 
 ///@function scr_tile_find_vert(collision path, x, y, direction)
@@ -143,11 +151,19 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 	}
 	
 	// Find actual tile surface (if dir == 1, top side. if dir == -1, bottom side)
-	if _dir == 1
-		return (_y & ~_snap) + (TILE_SIZE - _height);
+	if _dir == 1 {
+		if tile_get_flip(_tile) and _height
+			_height = TILE_SIZE;				// Handle both sides of the tile correctly.
 
-	else
+		return (_y & ~_snap) + (TILE_SIZE - _height);
+	}
+
+	else {
+		if !tile_get_flip(_tile) and _height
+			_height = TILE_SIZE;				// Handle both sides of the tile correctly.
+
 		return (_y & ~_snap) + _snap - (TILE_SIZE - _height);
+	}
 }
 
 ///@function scr_tile_find_vert2(collision path, x1, y1, x2, y2, direction)
