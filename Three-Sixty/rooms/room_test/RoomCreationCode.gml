@@ -1,6 +1,8 @@
 #macro TILE_COUNT	48
 #macro TILE_SIZE	16
 
+globalvar DEBUG;	DEBUG = false;
+
 // Collision Data
 global.tile_heights = [];
 global.tile_widths = [];
