@@ -35,8 +35,8 @@ function scr_check_floors(){
 
 	// If moving down
 	if (_spd > 0) {
-		var _pos = (y_pos + col_height);							// Collision anchor
-		var _surface = scr_tile_find_vert(col_path, x, _pos, 1);	// Get the actual top side of the tile
+		var _pos = (y_pos + col_height);	// Collision anchor
+		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);	// Get the actual top side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos >= _surface) or (_pos + _spd >= _surface) {
@@ -48,8 +48,8 @@ function scr_check_floors(){
 
 	// If moving up
 	else if (_spd < 0) {
-		var _pos = (y_pos - col_height);							// Collision anchor
-		var _surface = scr_tile_find_vert(col_path, x, _pos, -1);	// Get the actual bottom side of the tile
+		var _pos = (y_pos - col_height);	// Collision anchor
+		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);	// Get the actual bottom side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos <= _surface) or (_pos + _spd <= _surface) {
@@ -148,6 +148,21 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 
 	else
 		return (_y & ~_snap) + _snap - (TILE_SIZE - _height);
+}
+
+///@function scr_tile_find_vert2(collision path, x1, y1, x2, y2, direction)
+function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir){
+	var _surface;
+	var _surface1 = scr_tile_find_vert(_col_path, _x1, _y1, _dir);
+	var _surface2 = scr_tile_find_vert(_col_path, _x2, _y2, _dir);
+
+	// Use closest tile
+	if (_surface1 - _y1) <= (_surface2 - _y2)
+		_surface = _surface1;
+	else
+		_surface = _surface2;
+
+	return _surface;
 }
 
 ///@function scr_tile_get_height(index, x)
