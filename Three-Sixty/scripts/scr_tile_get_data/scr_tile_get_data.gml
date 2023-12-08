@@ -174,7 +174,7 @@ function scr_tile_get_height(_tile, _index, _x){
 	if tile_get_mirror(_tile)
 		_column = (~_x) & (TILE_SIZE - 1);
 
-	return global.tile_heights[_index & $1F][_column];
+	return global.tile_heights[_index & $3F][_column];
 }
 
 ///@function scr_tile_get_width(tile data, index, y)
@@ -184,5 +184,5 @@ function scr_tile_get_width(_tile, _index, _y){
 	if tile_get_flip(_tile)
 		_row = (~_y) & (TILE_SIZE - 1);
 
-	return global.tile_widths[_index & $1F][_row];
+	return global.tile_widths[_index & $3F][_row];
 }

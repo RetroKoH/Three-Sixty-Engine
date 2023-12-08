@@ -1,4 +1,4 @@
-#macro TILE_COUNT	32
+#macro TILE_COUNT	48
 #macro TILE_SIZE	16
 
 // Collision Data
