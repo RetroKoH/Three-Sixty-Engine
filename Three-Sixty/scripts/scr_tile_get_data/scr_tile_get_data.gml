@@ -12,6 +12,7 @@ function scr_check_walls(){
 			// Snap to left side of tile
 			x_pos = _surface - (col_push + 1);
 			x_spd = 0;
+			inertia = 0;
 		}
 	}
 
@@ -25,6 +26,7 @@ function scr_check_walls(){
 			// Snap to right side of tile
 			x_pos = _surface + (col_push + 1);
 			x_spd = 0;
+			inertia = 0;
 		}
 	}
 }

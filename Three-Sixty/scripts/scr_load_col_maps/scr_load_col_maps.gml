@@ -13,3 +13,18 @@ function scr_load_col_maps(_table, _fname){
 		file_bin_close(_file);
 	}
 }
+
+function scr_load_col_angles(_table, _fname){
+	var _file = file_bin_open(_fname, 0);
+	var _size = file_bin_size(_file);
+	if (_file) {
+		for (var _i = 0; _i < TILE_COUNT; _i++) {
+				var _byte = (_i < _size) ? file_bin_read_byte(_file) : 0;
+				if (_byte == $FF or _byte == 0)
+					_table[_i] = 0;
+				else
+					_table[_i] = $100 - _byte;
+		}
+		file_bin_close(_file);
+	}
+}

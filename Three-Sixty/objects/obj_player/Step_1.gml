@@ -1,5 +1,7 @@
 /// @description Early Player Movement
 
+col_angle_data = global.angle_data = [col_angle];
+
 // Keyboard checks
 key_left	= keyboard_check(vk_left);
 key_right	= keyboard_check(vk_right);
