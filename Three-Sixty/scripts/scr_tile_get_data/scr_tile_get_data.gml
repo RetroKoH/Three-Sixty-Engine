@@ -171,8 +171,6 @@ function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir){
 	var _surface;
 	var _surface1 = scr_tile_find_vert(_col_path, _x1, _y1, _dir);
 	var _surface2 = scr_tile_find_vert(_col_path, _x2, _y2, _dir);
-	
-	show_debug_message("Left:"+string(_surface1)+" Right:"+string(_surface2));
 
 	// Use closest tile (Multiply by _dir to get the correct closest distance, when considering _dir == -1)
 	if (_surface1 - _y1) * _dir <= (_surface2 - _y2) * _dir

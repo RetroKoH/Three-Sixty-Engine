@@ -21,12 +21,23 @@ if DEBUG {
 }
 
 else {
-	scr_player_move_ground();
-	scr_check_walls();
+	if (in_air) {
+		scr_player_move_air();
+		scr_check_walls();
+		x_pos += x_spd;
+		y_pos += y_spd;
+		y_spd += .21875;				// Apply gravity
+		scr_player_check_floors_air();	// New ground check to exit air state
+	}
 
-	// Use speeds to move player
-	x_pos += x_spd;
-	y_pos += y_spd;
+	else {	
+		scr_player_move_ground();
+		scr_check_walls();
 
+		// Use speeds to move player
+		x_pos += x_spd;
+		y_pos += y_spd;
 
+		scr_player_check_floors_ground();
+	}
 }

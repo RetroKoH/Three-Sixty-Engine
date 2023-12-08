@@ -19,3 +19,5 @@ col_width	= 9;
 col_height	= $13;	// (19)
 col_push	= 10;	// constant
 col_path	= layer_tilemap_get_id("Collision");
+
+in_air		= false;
