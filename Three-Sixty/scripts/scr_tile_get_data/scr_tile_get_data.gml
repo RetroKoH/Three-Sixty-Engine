@@ -4,8 +4,8 @@ function scr_check_walls(){
 
 	// If moving right
 	if (_spd > 0) {
-		var _pos = x_pos + col_push;								// Collision anchor
-		var _surface = scr_tile_find_hor(col_path, _pos, y + 8, 1);	// Get the actual left side of the tile
+		var _pos = x_pos + col_push;									// Collision anchor
+		var _surface = scr_tile_find_hor(col_path, _pos, y + 8, 1)[0];	// Get the actual left side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos >= _surface) or (_pos + _spd >= _surface) {
@@ -19,7 +19,7 @@ function scr_check_walls(){
 	// If moving left
 	else if (_spd < 0) {
 		var _pos = x_pos - col_push;									// Collision anchor
-		var _surface = scr_tile_find_hor(col_path, _pos, y + 8, -1);	// Get the actual right side of the tile
+		var _surface = scr_tile_find_hor(col_path, _pos, y + 8, -1)[0];	// Get the actual right side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos <= _surface) or (_pos + _spd <= _surface) {
@@ -38,7 +38,7 @@ function scr_check_floors(){
 	// If moving down
 	if (_spd > 0) {
 		var _pos = (y_pos + col_height);	// Collision anchor
-		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);	// Get the actual top side of the tile
+		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1)[0];	// Get the actual top side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos >= _surface) or (_pos + _spd >= _surface) {
@@ -51,7 +51,7 @@ function scr_check_floors(){
 	// If moving up
 	else if (_spd < 0) {
 		var _pos = (y_pos - col_height);	// Collision anchor
-		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);	// Get the actual bottom side of the tile
+		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1)[0];	// Get the actual bottom side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos <= _surface) or (_pos + _spd <= _surface) {
@@ -102,21 +102,29 @@ function scr_tile_find_hor(_col_path, _x, _y, _dir){
 			_width = TILE_SIZE;
 		}
 	}
-	
+
 	// Find actual tile surface (if dir == 1, left side. if dir == -1, right side)
+	var _surface;
+
 	if _dir == 1 {
 		if tile_get_mirror(_tile) and _width
 			_width = TILE_SIZE;					// Handle both sides of the tile correctly.
 
-		return (_x & ~_snap) + (TILE_SIZE - _width);
+		// Get tile surface
+		_surface = (_x & ~_snap) + (TILE_SIZE - _width);
 	}
 
 	else {
 		if !tile_get_mirror(_tile) and _width
 			_width = TILE_SIZE;					// Handle both sides of the tile correctly.
 
-		return (_x & ~_snap) + _snap - (TILE_SIZE - _width);
+		// Get tile surface
+		_surface = (_x & ~_snap) + _snap - (TILE_SIZE - _width);
 	}
+
+	// Get angle and return tile
+	var _angle = scr_tile_get_angle(_tile, _index);
+	return [_surface, _angle];
 }
 
 ///@function scr_tile_find_vert(collision path, x, y, direction)
@@ -153,34 +161,44 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 	}
 	
 	// Find actual tile surface (if dir == 1, top side. if dir == -1, bottom side)
+	var _surface;
+
 	if _dir == 1 {
 		if tile_get_flip(_tile) and _height
 			_height = TILE_SIZE;				// Handle both sides of the tile correctly.
 
-		return (_y & ~_snap) + (TILE_SIZE - _height);
+		_surface = (_y & ~_snap) + (TILE_SIZE - _height);
 	}
 
 	else {
 		if !tile_get_flip(_tile) and _height
 			_height = TILE_SIZE;				// Handle both sides of the tile correctly.
 
-		return (_y & ~_snap) + _snap - (TILE_SIZE - _height);
+		_surface = (_y & ~_snap) + _snap - (TILE_SIZE - _height);
 	}
+
+	// Get angle and return tile
+	var _angle = scr_tile_get_angle(_tile, _index);
+	return [_surface, _angle];
 }
 
 ///@function scr_tile_find_vert2(collision path, x1, y1, x2, y2, direction)
 function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir){
-	var _surface;
-	var _surface1 = scr_tile_find_vert(_col_path, _x1, _y1, _dir);
-	var _surface2 = scr_tile_find_vert(_col_path, _x2, _y2, _dir);
+	var _surface, _angle;
+	var _tile1 = scr_tile_find_vert(_col_path, _x1, _y1, _dir);
+	var _tile2 = scr_tile_find_vert(_col_path, _x2, _y2, _dir);
 
 	// Use closest tile (Multiply by _dir to get the correct closest distance, when considering _dir == -1)
-	if (_surface1 - _y1) * _dir <= (_surface2 - _y2) * _dir
-		_surface = _surface1;
-	else
-		_surface = _surface2;
+	if ((_tile1[0] - _y1) * _dir <= (_tile2[0] - _y2) * _dir) {
+		_surface = _tile1[0];
+		_angle = _tile1[1];
+	}
+	else {
+		_surface = _tile2[0];
+		_angle = _tile2[1];
+	}
 
-	return _surface;
+	return [_surface, _angle];
 }
 
 ///@function scr_tile_get_height(tile data, index, x)
@@ -201,4 +219,9 @@ function scr_tile_get_width(_tile, _index, _y){
 		_row = (~_y) & (TILE_SIZE - 1);
 
 	return global.tile_widths[_index & $3F][_row];
+}
+
+///@function scr_tile_get_angle(tile data, index)
+function scr_tile_get_angle(_tile, _index){
+	return global.tile_angles[_index & $3F];
 }
