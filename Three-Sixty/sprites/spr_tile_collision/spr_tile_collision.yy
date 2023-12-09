@@ -2,7 +2,7 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_tile_collision",
-  "bbox_bottom": 95,
+  "bbox_bottom": 111,
   "bbox_left": 0,
   "bbox_right": 255,
   "bbox_top": 0,
@@ -17,7 +17,7 @@
   ],
   "gridX": 16,
   "gridY": 16,
-  "height": 96,
+  "height": 112,
   "HTile": false,
   "layers": [
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"9886d305-9255-4d3f-8400-2f5d701e2a07","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
