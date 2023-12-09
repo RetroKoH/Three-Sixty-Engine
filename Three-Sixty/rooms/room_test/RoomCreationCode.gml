@@ -1,5 +1,12 @@
+// Collision Tile macro
 #macro TILE_COUNT	48
 #macro TILE_SIZE	16
+
+// Collision Quadrant macro
+#macro COL_FLOOR		0
+#macro COL_WALL_R		1
+#macro COL_CEILING		2
+#macro COL_WALL_L		3
 
 globalvar DEBUG;	DEBUG = false;
 

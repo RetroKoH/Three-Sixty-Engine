@@ -33,6 +33,7 @@ function scr_check_walls(){
 
 ///@function scr_check_floors()
 function scr_check_floors(){
+	// At this point, this is only used in debug mode atm
 	var _spd = max(abs(y_spd), 1) * sign(y_spd);
 
 	// If moving down

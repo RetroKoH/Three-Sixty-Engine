@@ -25,7 +25,6 @@ else {
 	if (in_air) {
 		scr_player_jump_height();
 		scr_player_move_air();
-		scr_check_walls();
 		x_pos += x_spd;
 		y_pos += y_spd;
 		y_spd += .21875;				// Apply gravity
