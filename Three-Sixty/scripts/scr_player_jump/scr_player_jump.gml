@@ -1,6 +1,6 @@
 ///@function scr_player_jump()
 function scr_player_jump(){
-	if (key_jump){
+	if (key_jump_press){
 		x_spd -= jmp_spd * col_angle_data.sine;
 		y_spd -= jmp_spd * col_angle_data.cosine;
 		in_air = true;

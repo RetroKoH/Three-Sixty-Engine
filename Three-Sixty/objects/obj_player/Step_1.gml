@@ -1,11 +1,12 @@
 /// @description Early Player Movement
 
 // Keyboard checks
-key_left	= keyboard_check(ord("A"));
-key_right	= keyboard_check(ord("D"));
-key_up		= keyboard_check(ord("W"));
-key_down	= keyboard_check(ord("S"));
-key_jump	= keyboard_check(ord("J"));
+key_left		= keyboard_check(ord("A"));
+key_right		= keyboard_check(ord("D"));
+key_up			= keyboard_check(ord("W"));
+key_down		= keyboard_check(ord("S"));
+key_jump		= keyboard_check(ord("J"));
+key_jump_press	= keyboard_check_pressed(ord("J"));
 
 if DEBUG {
 	// Apply speeds

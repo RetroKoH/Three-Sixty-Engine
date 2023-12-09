@@ -5,6 +5,7 @@ key_right		= false;
 key_up			= false;
 key_down		= false;
 key_jump		= false;
+key_jump_press	= false;
 
 x_pos			= x;
 y_pos			= y;
