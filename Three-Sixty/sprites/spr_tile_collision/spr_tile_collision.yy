@@ -2,7 +2,7 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "spr_tile_collision",
-  "bbox_bottom": 47,
+  "bbox_bottom": 31,
   "bbox_left": 0,
   "bbox_right": 255,
   "bbox_top": 0,
