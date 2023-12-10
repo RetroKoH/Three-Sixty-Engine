@@ -40,6 +40,7 @@
   "resources": [
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"scr_player_move","path":"scripts/scr_player_move/scr_player_move.yy",},},
+    {"id":{"name":"Sprite5","path":"sprites/Sprite5/Sprite5.yy",},},
     {"id":{"name":"scr_player_check_floors","path":"scripts/scr_player_check_floors/scr_player_check_floors.yy",},},
     {"id":{"name":"spr_tile_collision","path":"sprites/spr_tile_collision/spr_tile_collision.yy",},},
     {"id":{"name":"scr_tile_get_data","path":"scripts/scr_tile_get_data/scr_tile_get_data.yy",},},
