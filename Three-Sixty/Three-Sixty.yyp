@@ -30,6 +30,7 @@
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"anglemap.bin","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"heightmap.bin","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"heightmap.bin.bak","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"widthmap.bin","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "isEcma": false,
@@ -50,6 +51,7 @@
     {"id":{"name":"spr_debug_center","path":"sprites/spr_debug_center/spr_debug_center.yy",},},
     {"id":{"name":"spr_mask_player","path":"sprites/spr_mask_player/spr_mask_player.yy",},},
     {"id":{"name":"scr_load_col_maps","path":"scripts/scr_load_col_maps/scr_load_col_maps.yy",},},
+    {"id":{"name":"Sprite6","path":"sprites/Sprite6/Sprite6.yy",},},
     {"id":{"name":"room_test","path":"rooms/room_test/room_test.yy",},},
   ],
   "RoomOrderNodes": [

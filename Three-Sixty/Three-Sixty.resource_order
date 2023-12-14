@@ -25,5 +25,6 @@
     {"name":"tile_collision","order":1,"path":"tilesets/tile_collision/tile_collision.yy",},
     {"name":"spr_debug_line","order":1,"path":"sprites/spr_debug_line/spr_debug_line.yy",},
     {"name":"spr_debug_center","order":2,"path":"sprites/spr_debug_center/spr_debug_center.yy",},
+    {"name":"Sprite6","order":3,"path":"sprites/Sprite6/Sprite6.yy",},
   ],
 }
