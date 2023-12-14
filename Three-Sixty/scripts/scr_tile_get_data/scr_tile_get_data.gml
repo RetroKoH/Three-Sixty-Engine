@@ -178,14 +178,14 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 		_surface = (_y & ~_snap) + _snap - (TILE_SIZE - _height);
 	}
 
-	// Get angle and return tile
+	// Get angle and return tile. (Latter three values are for debugging)
 	var _angle = scr_tile_get_angle(_tile, _index);
-	return [_surface, _angle];
+	return [_surface, _angle, _tile, (_x & ~_snap), (_y & ~_snap)];
 }
 
 ///@function scr_tile_find_vert2(collision path, x1, y1, x2, y2, direction)
 function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir){
-	var _surface, _angle;
+	var _surface, _angle, _data, _cellx, _celly, _side;
 	var _tile1 = scr_tile_find_vert(_col_path, _x1, _y1, _dir);
 	var _tile2 = scr_tile_find_vert(_col_path, _x2, _y2, _dir);
 
@@ -193,13 +193,24 @@ function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir){
 	if ((_tile1[0] - _y1) * _dir <= (_tile2[0] - _y2) * _dir) {
 		_surface = _tile1[0];
 		_angle = _tile1[1];
+		// Only used for debugger
+		_data = _tile1[2];
+		_cellx = _tile1[3];
+		_celly = _tile1[4];
+		_side = 0;
 	}
 	else {
 		_surface = _tile2[0];
 		_angle = _tile2[1];
+		// Only used for debugger
+		_data = _tile2[2];
+		_cellx = _tile2[3];
+		_celly = _tile2[4];
+		_side = 1;
 	}
 
-	return [_surface, _angle];
+	// Return tile data (including debug info)
+	return [_surface, _angle, _data, _cellx, _celly, _side];
 }
 
 ///@function scr_tile_get_height(tile data, index, x)

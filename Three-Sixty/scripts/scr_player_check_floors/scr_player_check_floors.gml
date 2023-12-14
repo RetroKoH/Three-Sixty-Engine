@@ -9,14 +9,28 @@ function scr_player_check_floors_ground(){
 	var _dist = min(4 + abs(floor(x_pos)), 14);		// From Orbinaut Framework
 
 	// If too far, enter air state
-	if (_diff > _dist)
+	if (_diff > _dist) {
 		in_air = true;
+		D_TILE.tile = 0;
+		D_TILE.flip_x = false;
+		D_TILE.flip_y = false;
+		D_TILE.cell_x = 0;
+		D_TILE.cell_y = 0;
+		D_TILE.color = c_white;
+	}
 	
 	// Otherwise, align with the ground
 	else {
 		y_pos = _surface - (col_height + 1);
 		col_angle = _tile[1];
 		col_angle_data = global.angle_data[col_angle];
+		
+		D_TILE.tile = tile_get_index(_tile[2]);
+		D_TILE.flip_x = tile_get_mirror(_tile[2]);
+		D_TILE.flip_y = tile_get_flip(_tile[2]);
+		D_TILE.cell_x = _tile[3];
+		D_TILE.cell_y = _tile[4];
+		D_TILE.color = _tile[5] == 0 ? c_green : c_aqua;
 	}
 }
 

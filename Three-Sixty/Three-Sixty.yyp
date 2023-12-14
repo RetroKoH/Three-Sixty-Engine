@@ -26,6 +26,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprites","folderPath":"folders/Sprites.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tile Sets","folderPath":"folders/Tile Sets.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Debug","folderPath":"folders/Tile Sets/Debug.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"anglemap.bin","CopyToMask":-1,"filePath":"datafiles",},
@@ -40,9 +41,10 @@
   "resources": [
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"scr_player_move","path":"scripts/scr_player_move/scr_player_move.yy",},},
-    {"id":{"name":"Sprite5","path":"sprites/Sprite5/Sprite5.yy",},},
     {"id":{"name":"scr_player_check_floors","path":"scripts/scr_player_check_floors/scr_player_check_floors.yy",},},
+    {"id":{"name":"obj_debugtiles","path":"objects/obj_debugtiles/obj_debugtiles.yy",},},
     {"id":{"name":"spr_tile_collision","path":"sprites/spr_tile_collision/spr_tile_collision.yy",},},
+    {"id":{"name":"spr_debugtiles","path":"sprites/spr_debugtiles/spr_debugtiles.yy",},},
     {"id":{"name":"scr_tile_get_data","path":"scripts/scr_tile_get_data/scr_tile_get_data.yy",},},
     {"id":{"name":"scr_player_jump","path":"scripts/scr_player_jump/scr_player_jump.yy",},},
     {"id":{"name":"tile_collision","path":"tilesets/tile_collision/tile_collision.yy",},},
@@ -50,7 +52,7 @@
     {"id":{"name":"spr_debug_center","path":"sprites/spr_debug_center/spr_debug_center.yy",},},
     {"id":{"name":"spr_mask_player","path":"sprites/spr_mask_player/spr_mask_player.yy",},},
     {"id":{"name":"scr_load_col_maps","path":"scripts/scr_load_col_maps/scr_load_col_maps.yy",},},
-    {"id":{"name":"Sprite6","path":"sprites/Sprite6/Sprite6.yy",},},
+    {"id":{"name":"spr_planned_tiles","path":"sprites/spr_planned_tiles/spr_planned_tiles.yy",},},
     {"id":{"name":"room_test","path":"rooms/room_test/room_test.yy",},},
   ],
   "RoomOrderNodes": [
