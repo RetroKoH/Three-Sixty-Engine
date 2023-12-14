@@ -1,6 +1,6 @@
 // Collision Tile macro
-#macro TILE_COUNT	48
-#macro TILE_SIZE	16
+#macro TILE_COUNT		256
+#macro TILE_SIZE		16
 
 // Collision Quadrant macro
 #macro COL_FLOOR		0
@@ -11,10 +11,10 @@
 globalvar DEBUG;	DEBUG = false;
 
 // Collision Data
-global.tile_heights = [];
-global.tile_widths = [];
-global.tile_angles = [];
-global.angle_data = [];
+global.tile_heights	= [];
+global.tile_widths	= [];
+global.tile_angles	= [];
+global.angle_data	= [];
 
 // Load Tile Heights and Angles
 scr_load_col_maps(global.tile_heights, "heightmap.bin");
