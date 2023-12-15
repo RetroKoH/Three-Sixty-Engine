@@ -49,6 +49,7 @@
     {"id":{"name":"scr_player_jump","path":"scripts/scr_player_jump/scr_player_jump.yy",},},
     {"id":{"name":"tile_collision","path":"tilesets/tile_collision/tile_collision.yy",},},
     {"id":{"name":"spr_debug_line","path":"sprites/spr_debug_line/spr_debug_line.yy",},},
+    {"id":{"name":"scr_ctrl_player","path":"scripts/scr_ctrl_player/scr_ctrl_player.yy",},},
     {"id":{"name":"spr_debug_center","path":"sprites/spr_debug_center/spr_debug_center.yy",},},
     {"id":{"name":"spr_mask_player","path":"sprites/spr_mask_player/spr_mask_player.yy",},},
     {"id":{"name":"scr_load_col_maps","path":"scripts/scr_load_col_maps/scr_load_col_maps.yy",},},
