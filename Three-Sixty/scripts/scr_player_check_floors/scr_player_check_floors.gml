@@ -25,7 +25,7 @@ function scr_player_check_floors_ground(){
 			}
 	
 			// Otherwise, align with the ground
-			else {
+			else if (_diff >= -14){
 				y_pos = _surface - (col_height + 1);
 				col_angle = _tile[1];
 				col_angle_data = global.angle_data[col_angle];
@@ -60,7 +60,7 @@ function scr_player_check_floors_ground(){
 			}
 	
 			// Otherwise, align with the ground
-			else {
+			else if (_diff >= -14){
 				x_pos = _surface - (col_height + 1);
 				col_angle = _tile[1];
 				col_angle_data = global.angle_data[col_angle];
@@ -95,7 +95,7 @@ function scr_player_check_floors_ground(){
 			}
 	
 			// Otherwise, align with the ground
-			else {
+			else if (_diff >= -14){
 				y_pos = _surface + (col_height + 1);
 				col_angle = _tile[1];
 				col_angle_data = global.angle_data[col_angle];
@@ -130,7 +130,7 @@ function scr_player_check_floors_ground(){
 			}
 	
 			// Otherwise, align with the ground
-			else {
+			else if (_diff >= -14){
 				x_pos = _surface + (col_height + 1);
 				col_angle = _tile[1];
 				col_angle_data = global.angle_data[col_angle];
