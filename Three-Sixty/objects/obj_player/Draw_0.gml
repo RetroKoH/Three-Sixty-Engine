@@ -1,6 +1,9 @@
 /// @description Draw Mask and Sensors
 
-draw_self();
+var _rot = (col_angle_data.mode_ground * 90);
+
+draw_sprite_ext(sprite_index, 0, x, y, 1, 1, _rot, c_white, 1);
+
 var _y_off = 8 * (col_angle == 0 and in_air == false);
 
 // Floor sensors (Always at x +/- width, y + height)

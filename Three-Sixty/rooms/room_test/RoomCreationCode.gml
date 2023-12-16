@@ -29,7 +29,8 @@ for (var _i = 0; _i < 256; _i++) {
 		angle		: _ang,
 		sine		: dsin(_ang),
 		cosine		: dcos(_ang),
-		mode_floor	: scr_angle_set_floor_quadrants(_i)
+		mode_ground	: scr_angle_set_ground_quadrants(_i),
+		mode_push	: scr_angle_set_push_quadrants(_i),
 	}
 }
 

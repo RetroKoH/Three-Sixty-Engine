@@ -1,36 +1,149 @@
 ///@scr_player_check_floors_ground()
 function scr_player_check_floors_ground(){
 	// _spd is not logged here
-	var _pos = y_pos + col_height;	// Collision anchor
-	var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
-	var _surface = _tile[0];		// NEW
 
-	var _diff = _surface - _pos;					// Get distance to the ground
-	var _dist = min(4 + abs(floor(x_pos)), 14);		// From Orbinaut Framework
+	// Perform collision based on current collision mode
+	switch(col_angle_data.mode_ground){
+		case COL_FLOOR:
+		{
+			var _pos = y_pos + col_height;	// Collision anchor
+			var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
+			var _surface = _tile[0];		// NEW
 
-	// If too far, enter air state
-	if (_diff > _dist) {
-		in_air = true;
-		D_TILE.tile[0] = 0;
-		D_TILE.flip_x[0] = false;
-		D_TILE.flip_y[0] = false;
-		D_TILE.cell_x[0] = 0;
-		D_TILE.cell_y[0] = 0;
-		D_TILE.color[0] = c_white;
-	}
+			var _diff = _surface - _pos;					// Get distance to the ground
+			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
+
+			// If too far, enter air state
+			if (_diff > _dist) {
+				in_air = true;
+				D_TILE.tile[0] = 0;
+				D_TILE.flip_x[0] = false;
+				D_TILE.flip_y[0] = false;
+				D_TILE.cell_x[0] = 0;
+				D_TILE.cell_y[0] = 0;
+				D_TILE.color[0] = c_white;
+			}
 	
-	// Otherwise, align with the ground
-	else {
-		y_pos = _surface - (col_height + 1);
-		col_angle = _tile[1];
-		col_angle_data = global.angle_data[col_angle];
+			// Otherwise, align with the ground
+			else {
+				y_pos = _surface - (col_height + 1);
+				col_angle = _tile[1];
+				col_angle_data = global.angle_data[col_angle];
 		
-		D_TILE.tile[0] = tile_get_index(_tile[2]);
-		D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
-		D_TILE.flip_y[0] = tile_get_flip(_tile[2]);
-		D_TILE.cell_x[0] = _tile[3];
-		D_TILE.cell_y[0] = _tile[4];
-		D_TILE.color[0] = _tile[5] == 0 ? c_green : c_aqua;
+				D_TILE.tile[0] = tile_get_index(_tile[2]);
+				D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
+				D_TILE.flip_y[0] = tile_get_flip(_tile[2]);
+				D_TILE.cell_x[0] = _tile[3];
+				D_TILE.cell_y[0] = _tile[4];
+				D_TILE.color[0] = _tile[5] == 0 ? c_green : c_aqua;
+			}
+		}
+		break;
+		case COL_WALL_R:
+		{
+			var _pos = x_pos + col_height;	// Collision anchor
+			var _tile = scr_tile_find_hor2(col_path, _pos, y+col_width, _pos, y-col_width, 1);
+			var _surface = _tile[0];		// NEW
+			
+			var _diff = _surface - _pos;					// Get distance to the ground
+			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
+
+			// If too far, enter air state
+			if (_diff > _dist) {
+				in_air = true;
+				D_TILE.tile[0] = 0;
+				D_TILE.flip_x[0] = false;
+				D_TILE.flip_y[0] = false;
+				D_TILE.cell_x[0] = 0;
+				D_TILE.cell_y[0] = 0;
+				D_TILE.color[0] = c_white;
+			}
+	
+			// Otherwise, align with the ground
+			else {
+				x_pos = _surface - (col_height + 1);
+				col_angle = _tile[1];
+				col_angle_data = global.angle_data[col_angle];
+		
+				D_TILE.tile[0] = tile_get_index(_tile[2]);
+				D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
+				D_TILE.flip_y[0] = tile_get_flip(_tile[2]);
+				D_TILE.cell_x[0] = _tile[3];
+				D_TILE.cell_y[0] = _tile[4];
+				D_TILE.color[0] = _tile[5] == 0 ? c_green : c_aqua;
+			}
+		}
+		break;
+		case COL_CEILING:
+		{
+			var _pos = y_pos - col_height;	// Collision anchor
+			var _tile = scr_tile_find_vert2(col_path, x+col_width, _pos, x-col_width, _pos, -1);
+			var _surface = _tile[0];		// NEW
+
+			var _diff = _surface + _pos;					// Get distance to the ground
+			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
+
+			// If too far, enter air state
+			if (_diff > _dist) {
+				in_air = true;
+				D_TILE.tile[0] = 0;
+				D_TILE.flip_x[0] = false;
+				D_TILE.flip_y[0] = false;
+				D_TILE.cell_x[0] = 0;
+				D_TILE.cell_y[0] = 0;
+				D_TILE.color[0] = c_white;
+			}
+	
+			// Otherwise, align with the ground
+			else {
+				y_pos = _surface + (col_height + 1);
+				col_angle = _tile[1];
+				col_angle_data = global.angle_data[col_angle];
+		
+				D_TILE.tile[0] = tile_get_index(_tile[2]);
+				D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
+				D_TILE.flip_y[0] = tile_get_flip(_tile[2]);
+				D_TILE.cell_x[0] = _tile[3];
+				D_TILE.cell_y[0] = _tile[4];
+				D_TILE.color[0] = _tile[5] == 0 ? c_green : c_aqua;
+			}
+		}
+		break;
+		case COL_WALL_L:
+		{
+			var _pos = x_pos - col_height;	// Collision anchor
+			var _tile = scr_tile_find_hor2(col_path, _pos, y-col_width, _pos, y+col_width, -1);
+			var _surface = _tile[0];		// NEW
+			
+			var _diff = _surface + _pos;					// Get distance to the ground
+			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
+
+			// If too far, enter air state
+			if (_diff > _dist) {
+				in_air = true;
+				D_TILE.tile[0] = 0;
+				D_TILE.flip_x[0] = false;
+				D_TILE.flip_y[0] = false;
+				D_TILE.cell_x[0] = 0;
+				D_TILE.cell_y[0] = 0;
+				D_TILE.color[0] = c_white;
+			}
+	
+			// Otherwise, align with the ground
+			else {
+				x_pos = _surface + (col_height + 1);
+				col_angle = _tile[1];
+				col_angle_data = global.angle_data[col_angle];
+		
+				D_TILE.tile[0] = tile_get_index(_tile[2]);
+				D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
+				D_TILE.flip_y[0] = tile_get_flip(_tile[2]);
+				D_TILE.cell_x[0] = _tile[3];
+				D_TILE.cell_y[0] = _tile[4];
+				D_TILE.color[0] = _tile[5] == 0 ? c_green : c_aqua;
+			}
+		}
+		break;
 	}
 }
 
