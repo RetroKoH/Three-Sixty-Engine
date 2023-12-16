@@ -1,5 +1,6 @@
 ///@function scr_check_walls()
 function scr_check_walls(){
+	// At this point, this is only used in debug mode
 	var _spd = max(abs(x_spd), 1) * sign(x_spd);
 
 	// If moving right

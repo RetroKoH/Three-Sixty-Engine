@@ -52,7 +52,7 @@ function scr_player_check_floors_air(){
 				// If moving right
 				if (_spd > 0) {
 					_pos = x_pos + col_push;								// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y + 8, 1);
+					_tile = scr_tile_find_hor(col_path, _pos, y, 1);
 					_surface = _tile[0];									// Get the actual left side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -72,7 +72,7 @@ function scr_player_check_floors_air(){
 				// If moving left
 				else if (_spd < 0) {
 					_pos = x_pos - col_push;								// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y + 8, -1);
+					_tile = scr_tile_find_hor(col_path, _pos, y, -1);
 					_surface = _tile[0];									// Get the actual right side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -155,7 +155,7 @@ function scr_player_check_floors_air(){
 				_spd = max(x_spd, 1);
 
 				_pos = x_pos + col_push;								// Collision anchor
-				_tile = scr_tile_find_hor(col_path, _pos, y + 8, 1);
+				_tile = scr_tile_find_hor(col_path, _pos, y, 1);
 				_surface = _tile[0];									// Get the actual left side of the tile
 
 				// Check if we are at/within the tile's actual surface
@@ -292,7 +292,7 @@ function scr_player_check_floors_air(){
 				// If moving right
 				if (_spd > 0) {
 					_pos = x_pos + col_push;								// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y + 8, 1);
+					_tile = scr_tile_find_hor(col_path, _pos, y, 1);
 					_surface = _tile[0];									// Get the actual left side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -312,7 +312,7 @@ function scr_player_check_floors_air(){
 				// If moving left
 				else if (_spd < 0) {
 					_pos = x_pos - col_push;								// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y + 8, -1);
+					_tile = scr_tile_find_hor(col_path, _pos, y, -1);
 					_surface = _tile[0];									// Get the actual right side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -386,7 +386,7 @@ function scr_player_check_floors_air(){
 				_spd = min(x_spd, -1);
 
 				_pos = x_pos - col_push;								// Collision anchor
-				_tile = scr_tile_find_hor(col_path, _pos, y + 8, -1);
+				_tile = scr_tile_find_hor(col_path, _pos, y, -1);
 				_surface = _tile[0];									// Get the actual right side of the tile
 
 				// Check if we are at/within the tile's actual surface
@@ -502,5 +502,90 @@ function scr_player_check_floors_air(){
 			#endregion
 		}
 		break;
+	}
+}
+
+///@function scr_player_check_walls()
+function scr_player_check_walls(){
+	var _a = col_angle_data.angle;
+	
+	// Don't push when on non-flat walls or ceilings
+	if (_a > 90 and _a < 270) and _a != 180
+		return;
+	
+	// Offset sensor on flat ground
+	var _y_off	= 8 * (_a == 0);
+	var _spd	= max(abs(x_spd), 1) * sign(x_spd);
+
+	// If moving right
+	if (_spd > 0) {
+		var _pos = x_pos + col_push;								// Collision anchor
+		var _tile = scr_tile_find_hor(col_path, _pos, y + _y_off, 1);
+		var _surface = _tile[0];									// Get the actual left side of the tile
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos >= _surface) or (_pos + _spd >= _surface) {
+			// Snap to left side of tile
+			x_pos = _surface - (col_push + 1);
+			x_spd = 0;
+			inertia = 0;
+			
+			D_TILE.tile[2] = tile_get_index(_tile[2]);
+			D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
+			D_TILE.flip_y[2] = tile_get_flip(_tile[2]);
+			D_TILE.cell_x[2] = _tile[3];
+			D_TILE.cell_y[2] = _tile[4];
+			D_TILE.color[2] = c_red;
+		}
+		
+		else {
+			D_TILE.tile[2] = 0;
+			D_TILE.flip_x[2] = false;
+			D_TILE.flip_y[2] = false;
+			D_TILE.cell_x[2] = 0;
+			D_TILE.cell_y[2] = 0;
+			D_TILE.color[2] = c_white;
+		}
+	}
+
+	// If moving left
+	else if (_spd < 0) {
+		var _pos = x_pos - col_push;								// Collision anchor
+		var _tile = scr_tile_find_hor(col_path, _pos, y + _y_off, -1);
+		var _surface = _tile[0];									// Get the actual right side of the tile
+
+		// Check if we are at/within the tile's actual surface
+		if (_pos <= _surface) or (_pos + _spd <= _surface) {
+			// Snap to right side of tile
+			x_pos = _surface + (col_push + 1);
+			x_spd = 0;
+			inertia = 0;
+			
+			D_TILE.tile[2] = tile_get_index(_tile[2]);
+			D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
+			D_TILE.flip_y[2] = tile_get_flip(_tile[2]);
+			D_TILE.cell_x[2] = _tile[3];
+			D_TILE.cell_y[2] = _tile[4];
+			D_TILE.color[2] = c_fuchsia;
+		}
+		
+		else {
+			D_TILE.tile[2] = 0;
+			D_TILE.flip_x[2] = false;
+			D_TILE.flip_y[2] = false;
+			D_TILE.cell_x[2] = 0;
+			D_TILE.cell_y[2] = 0;
+			D_TILE.color[2] = c_white;
+		}
+	}
+	
+	// If not moving, don't register collision
+	else {
+		D_TILE.tile[2] = 0;
+		D_TILE.flip_x[2] = false;
+		D_TILE.flip_y[2] = false;
+		D_TILE.cell_x[2] = 0;
+		D_TILE.cell_y[2] = 0;
+		D_TILE.color[2] = c_white;
 	}
 }
