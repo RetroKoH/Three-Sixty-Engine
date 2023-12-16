@@ -8,7 +8,7 @@ draw_text(4, 4,
 		"#Y (Actual): "+string(y_pos)+
 		"#Y (Screen): "+string(y)+
 		"#Y Speed: "+string(y_spd)+
-		"#Angle: "+string(col_angle)+
+		"#Angle: "+string(global.angle_data[col_angle].angle)+
 		"#In Air: " + (in_air ? "YES" : "NO")
 	)
 );

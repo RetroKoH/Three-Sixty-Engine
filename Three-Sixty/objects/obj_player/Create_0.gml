@@ -12,6 +12,7 @@ y_pos			= y;
 x_spd			= 0;
 y_spd			= 0;
 inertia			= 0;
+move_lock		= 0;
 
 accel			= 0.046875;
 decel			= 0.5;

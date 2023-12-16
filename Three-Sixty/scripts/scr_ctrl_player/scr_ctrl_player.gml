@@ -29,14 +29,13 @@ function scr_ctrl_player_debug(){
 
 ///@function scr_ctrl_player_normal()
 function scr_ctrl_player_normal(){
-	if scr_player_jump()	exit;
-	scr_player_move_ground();
+	if scr_player_jump()	exit;		// *** Check for starting a jump.
+	scr_player_slope_resist();			// Adjust inertia based on collision angle.
+	scr_player_move_ground();			// Move along the ground and apply friction/deceleration.
 	scr_check_walls();
-
-	// Use speeds to move player
-	x_pos += x_spd;	y_pos += y_spd;
-
-	scr_player_check_floors_ground();
+	x_pos += x_spd;	y_pos += y_spd;		// Use speeds to move player
+	scr_player_check_floors_ground();	// Floor collision and angle check occurs.
+	scr_player_slope_repel();			// Push down slopes and fall from walls/ceilings/loops.
 }
 
 ///@function scr_ctrl_player_air()
