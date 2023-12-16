@@ -6,9 +6,9 @@ function scr_player_check_floors_ground(){
 	switch(col_angle_data.mode_ground){
 		case COL_FLOOR:
 		{
-			var _pos = y_pos + col_height;	// Collision anchor
+			var _pos = y + col_height;	// Collision anchor
 			var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
-			var _surface = _tile[0];		// NEW
+			var _surface = _tile[0];
 
 			var _diff = _surface - _pos;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
@@ -41,9 +41,9 @@ function scr_player_check_floors_ground(){
 		break;
 		case COL_WALL_R:
 		{
-			var _pos = x_pos + col_height;	// Collision anchor
+			var _pos = x + col_height;	// Collision anchor
 			var _tile = scr_tile_find_hor2(col_path, _pos, y+col_width, _pos, y-col_width, 1);
-			var _surface = _tile[0];		// NEW
+			var _surface = _tile[0];
 			
 			var _diff = _surface - _pos;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
@@ -76,11 +76,11 @@ function scr_player_check_floors_ground(){
 		break;
 		case COL_CEILING:
 		{
-			var _pos = y_pos - col_height;	// Collision anchor
+			var _pos = y - col_height;	// Collision anchor
 			var _tile = scr_tile_find_vert2(col_path, x+col_width, _pos, x-col_width, _pos, -1);
-			var _surface = _tile[0];		// NEW
+			var _surface = _tile[0];
 
-			var _diff = _surface + _pos;					// Get distance to the ground
+			var _diff = abs(_surface - _pos);				// Get distance to the ground
 			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
 
 			// If too far, enter air state
@@ -111,11 +111,11 @@ function scr_player_check_floors_ground(){
 		break;
 		case COL_WALL_L:
 		{
-			var _pos = x_pos - col_height;	// Collision anchor
+			var _pos = x - col_height;	// Collision anchor
 			var _tile = scr_tile_find_hor2(col_path, _pos, y-col_width, _pos, y+col_width, -1);
-			var _surface = _tile[0];		// NEW
+			var _surface = _tile[0];
 			
-			var _diff = _surface + _pos;					// Get distance to the ground
+			var _diff = abs(_surface - _pos);				// Get distance to the ground
 			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
 
 			// If too far, enter air state
