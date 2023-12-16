@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Script7",
+  "name": "scr_angle_set_quadrants",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

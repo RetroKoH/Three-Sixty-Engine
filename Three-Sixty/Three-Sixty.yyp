@@ -40,7 +40,7 @@
   },
   "resources": [
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
-    {"id":{"name":"Script7","path":"scripts/Script7/Script7.yy",},},
+    {"id":{"name":"scr_angle_set_quadrants","path":"scripts/scr_angle_set_quadrants/scr_angle_set_quadrants.yy",},},
     {"id":{"name":"scr_player_move","path":"scripts/scr_player_move/scr_player_move.yy",},},
     {"id":{"name":"scr_player_check_floors","path":"scripts/scr_player_check_floors/scr_player_check_floors.yy",},},
     {"id":{"name":"obj_debugtiles","path":"objects/obj_debugtiles/obj_debugtiles.yy",},},
