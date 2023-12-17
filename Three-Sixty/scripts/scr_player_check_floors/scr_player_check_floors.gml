@@ -13,7 +13,7 @@ function scr_player_check_floors_ground(){
 			var _diff = _surface - _pos;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
 
-			// If the distance value is less than -14 or greater than _dist, the Player won't collide
+// If the distance value (_diff) is less than -14 or greater than _dist, the Player won't collide
 			// If too far, enter air state
 			if (_diff > _dist) {
 				in_air = true;
@@ -49,6 +49,7 @@ function scr_player_check_floors_ground(){
 			var _diff = _surface - _pos;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
 
+// If the distance value (_diff) is less than -14 or greater than _dist, the Player won't collide
 			// If too far, enter air state
 			if (_diff > _dist) {
 				in_air = true;
@@ -81,9 +82,10 @@ function scr_player_check_floors_ground(){
 			var _tile = scr_tile_find_vert2(col_path, x+col_width, _pos, x-col_width, _pos, -1);
 			var _surface = _tile[0];
 
-			var _diff = abs(_surface - _pos);				// Get distance to the ground
+			var _diff = _pos - _surface;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
 
+// If the distance value (_diff) is less than -14 or greater than _dist, the Player won't collide
 			// If too far, enter air state
 			if (_diff > _dist) {
 				in_air = true;
@@ -116,9 +118,10 @@ function scr_player_check_floors_ground(){
 			var _tile = scr_tile_find_hor2(col_path, _pos, y-col_width, _pos, y+col_width, -1);
 			var _surface = _tile[0];
 			
-			var _diff = abs(_surface - _pos);				// Get distance to the ground
+			var _diff = _pos - _surface;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
 
+// If the distance value (_diff) is less than -14 or greater than _dist, the Player won't collide
 			// If too far, enter air state
 			if (_diff > _dist) {
 				in_air = true;

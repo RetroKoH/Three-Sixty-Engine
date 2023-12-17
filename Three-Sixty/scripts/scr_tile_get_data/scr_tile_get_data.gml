@@ -237,7 +237,7 @@ function scr_tile_find_hor2(_col_path, _x1, _y1, _x2, _y2, _dir){
 	var _tile2 = scr_tile_find_hor(_col_path, _x2, _y2, _dir);
 
 	// Use closest tile (Multiply by _dir to get the correct closest distance, when considering _dir == -1)
-	if ((_tile1[0] - _y1) * _dir <= (_tile2[0] - _y2) * _dir) {
+	if ((_tile1[0] - _x1) * _dir <= (_tile2[0] - _x2) * _dir) {
 		_surface = _tile1[0];
 		_angle = _tile1[1];
 		// Only used for debugger
