@@ -41,8 +41,14 @@ function scr_player_move_ground(){
 
 ///@function scr_player_slope_resist()
 function scr_player_slope_resist(){
-	if (inertia)
-		inertia -= 0.125 * col_angle_data.sine;
+	// Exit if on ceiling.
+	if (col_angle_data.mode_ground == COL_CEILING)
+		exit;
+	
+	var _slp = 0.125 * col_angle_data.sine;
+	
+	if (abs(_slp) > 0.05078125)
+		inertia -= _slp;
 }
 
 ///@function scr_player_slope_repel()
