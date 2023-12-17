@@ -57,19 +57,17 @@ function scr_player_slope_repel(){
 		move_lock--;
 
 	if !(move_lock){
-		var _a = col_angle_data.angle;
-
 		// Should player slip?
-		if (_a >= 35.16 and _a <= 326.25 and abs(inertia) < 2.5){
+		if (col_angle >= $18 and col_angle <= $E7 and abs(inertia) < 2.5){
             move_lock = 30;	// Lock controls (slip)
 			
 			// Should player fall?
-			if (_a >= 68.91 and _a <= 292.5)
+			if (col_angle >= $30 and col_angle <= $CF)
 				in_air = true;	// Fall into air state.
 			
 			// If not, slide player down the slope
 			else
-				inertia += _a > 180 ? 0.5 : -0.5;
+				inertia += col_angle > $80 ? 0.5 : -0.5;
 		}
 	}
 }

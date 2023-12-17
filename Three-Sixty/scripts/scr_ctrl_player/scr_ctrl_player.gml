@@ -35,7 +35,7 @@ function scr_ctrl_player_normal(){
 	scr_player_check_walls();			// Check for walls along the ground
 	x_pos += x_spd;	y_pos += y_spd;		// Use speeds to move player
 	scr_player_check_floors_ground();	// Floor collision and angle check occurs.
-	//scr_player_slope_repel();			// Push down slopes and fall from walls/ceilings/loops.
+	scr_player_slope_repel();			// Push down slopes and fall from walls/ceilings/loops.
 }
 
 ///@function scr_ctrl_player_air()
