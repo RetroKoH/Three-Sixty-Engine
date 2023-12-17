@@ -2,7 +2,8 @@
 
 draw_text(4, 4,
 	string_hash_to_newline(
-		"X (Actual): "+string(x_pos)+
+		"Inertia: "+string(inertia)+
+		"#X (Actual): "+string(x_pos)+
 		"#X (Screen): "+string(x)+
 		"#X Speed: "+string(x_spd)+
 		"#Y (Actual): "+string(y_pos)+
