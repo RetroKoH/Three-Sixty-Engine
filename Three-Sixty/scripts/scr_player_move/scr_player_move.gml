@@ -32,7 +32,7 @@ function scr_player_move_ground(){
 
 	// Apply Friction if pressing nothing
 	if (_dir == 0)
-		inertia -= min(abs(inertia), fric) * sign(x_spd);
+		inertia -= min(abs(inertia), fric) * sign(inertia);
 	
 	// Use inertia and angle data to obtain proper speeds
 	x_spd = inertia * col_angle_data.cosine;
@@ -71,6 +71,11 @@ function scr_player_slope_repel(){
 ///@function scr_player_move_air()
 function scr_player_move_air(){
 	var _dir = (key_right - key_left);
+	
+	if (col_angle){
+		col_angle = 0;
+		col_angle_data = global.angle_data[col_angle];
+	}
 
 	// Pressing Left
 	if _dir == -1 {

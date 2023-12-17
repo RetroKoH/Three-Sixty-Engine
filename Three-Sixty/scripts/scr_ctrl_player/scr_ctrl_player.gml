@@ -30,7 +30,7 @@ function scr_ctrl_player_debug(){
 ///@function scr_ctrl_player_normal()
 function scr_ctrl_player_normal(){
 	if scr_player_jump()	exit;		// *** Check for starting a jump.
-	scr_player_slope_resist();			// Adjust inertia based on collision angle.
+	//scr_player_slope_resist();			// Adjust inertia based on collision angle.
 	scr_player_move_ground();			// Move along the ground and apply friction/deceleration.
 	scr_player_check_walls();			// Check for walls along the ground
 	x_pos += x_spd;	y_pos += y_spd;		// Use speeds to move player

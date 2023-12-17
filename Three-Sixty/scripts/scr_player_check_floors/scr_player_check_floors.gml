@@ -13,6 +13,7 @@ function scr_player_check_floors_ground(){
 			var _diff = _surface - _pos;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
 
+			// If the distance value is less than -14 or greater than _dist, the Player won't collide
 			// If too far, enter air state
 			if (_diff > _dist) {
 				in_air = true;
