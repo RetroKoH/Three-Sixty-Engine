@@ -9,6 +9,15 @@ function scr_player_check_floors_ground(){
 			var _pos = y + col_height;	// Collision anchor
 			var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
 			var _surface = _tile[0];
+			var _angle = _tile[1];
+			
+			// Angle snapping occurs if the absolute difference between your current Ground Angle and the tile's angle is greater than 45° (32/$20)
+			var _angle_diff = abs(col_angle mod $80 - _angle mod $80);		
+			if _angle_diff > $20 and _angle_diff < $60{	// if _diff > 45 and _diff < 135
+				_angle = round(col_angle / $40) mod 4 * $40;
+				if (_angle == $100)
+					_angle = 0;
+			}
 
 			var _diff = _surface - _pos;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
@@ -28,7 +37,7 @@ function scr_player_check_floors_ground(){
 			// Otherwise, align with the ground
 			else if (_diff >= -14){
 				y_pos = _surface - (col_height + 1);
-				col_angle = _tile[1];
+				col_angle = _angle;
 				col_angle_data = global.angle_data[col_angle];
 		
 				D_TILE.tile[0] = tile_get_index(_tile[2]);
@@ -45,6 +54,15 @@ function scr_player_check_floors_ground(){
 			var _pos = x + col_height;	// Collision anchor
 			var _tile = scr_tile_find_hor2(col_path, _pos, y+col_width, _pos, y-col_width, 1);
 			var _surface = _tile[0];
+			var _angle = _tile[1];
+			
+			// Angle snapping occurs if the absolute difference between your current Ground Angle and the tile's angle is greater than 45° (32/$20)
+			var _angle_diff = abs(col_angle mod $80 - _angle mod $80);		
+			if _angle_diff > $20 and _angle_diff < $60{	// if _diff > 45 and _diff < 135
+				_angle = round(col_angle / $40) mod 4 * $40;
+				if (_angle == $100)
+					_angle = 0;
+			}
 			
 			var _diff = _surface - _pos;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
@@ -64,7 +82,7 @@ function scr_player_check_floors_ground(){
 			// Otherwise, align with the ground
 			else if (_diff >= -14){
 				x_pos = _surface - (col_height + 1);
-				col_angle = _tile[1];
+				col_angle = _angle;
 				col_angle_data = global.angle_data[col_angle];
 		
 				D_TILE.tile[0] = tile_get_index(_tile[2]);
@@ -81,6 +99,15 @@ function scr_player_check_floors_ground(){
 			var _pos = y - col_height;	// Collision anchor
 			var _tile = scr_tile_find_vert2(col_path, x+col_width, _pos, x-col_width, _pos, -1);
 			var _surface = _tile[0];
+			var _angle = _tile[1];
+			
+			// Angle snapping occurs if the absolute difference between your current Ground Angle and the tile's angle is greater than 45° (32/$20)
+			var _angle_diff = abs(col_angle mod $80 - _angle mod $80);		
+			if _angle_diff > $20 and _angle_diff < $60{	// if _diff > 45 and _diff < 135
+				_angle = round(col_angle / $40) mod 4 * $40;
+				if (_angle == $100)
+					_angle = 0;
+			}
 
 			var _diff = _pos - _surface;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
@@ -100,7 +127,7 @@ function scr_player_check_floors_ground(){
 			// Otherwise, align with the ground
 			else if (_diff >= -14){
 				y_pos = _surface + (col_height + 1);
-				col_angle = _tile[1];
+				col_angle = _angle;
 				col_angle_data = global.angle_data[col_angle];
 		
 				D_TILE.tile[0] = tile_get_index(_tile[2]);
@@ -117,6 +144,15 @@ function scr_player_check_floors_ground(){
 			var _pos = x - col_height;	// Collision anchor
 			var _tile = scr_tile_find_hor2(col_path, _pos, y-col_width, _pos, y+col_width, -1);
 			var _surface = _tile[0];
+			var _angle = _tile[1];
+			
+			// Angle snapping occurs if the absolute difference between your current Ground Angle and the tile's angle is greater than 45° (32/$20)
+			var _angle_diff = abs(col_angle mod $80 - _angle mod $80);		
+			if _angle_diff > $20 and _angle_diff < $60{	// if _diff > 45 and _diff < 135
+				_angle = round(col_angle / $40) mod 4 * $40;
+				if (_angle == $100)
+					_angle = 0;
+			}
 			
 			var _diff = _pos - _surface;					// Get distance to the ground
 			var _dist = min(4 + abs(floor(y_spd)), 14);		// From Orbinaut Framework
@@ -136,7 +172,7 @@ function scr_player_check_floors_ground(){
 			// Otherwise, align with the ground
 			else if (_diff >= -14){
 				x_pos = _surface + (col_height + 1);
-				col_angle = _tile[1];
+				col_angle = _angle;
 				col_angle_data = global.angle_data[col_angle];
 		
 				D_TILE.tile[0] = tile_get_index(_tile[2]);

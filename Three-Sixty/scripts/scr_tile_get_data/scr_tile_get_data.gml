@@ -315,27 +315,20 @@ function scr_tile_get_angle(_tile, _index, _angle){
 	
 	var _ang = global.tile_angles[_index & $FF];
 	
+	// Angle snapping for tiles flagged 00.
 	if (_ang == 0){
 		_ang = round(_angle / $40) mod 4 * $40;
 		if (_ang == $100)
 			_ang = 0;
 	}
 
-	// Tiles with an angle of 00 are flagged tiles.
+	// Standard Angle handling for flipped/mirrored tiles.
 	else{
 		if tile_get_mirror(_tile)
 	        _ang = $100 - _ang;
     
 	    if tile_get_flip(_tile)
 	        _ang = ($180 - _ang) mod $100;
-	
-		// Angle snapping also occurs with normal tiles if the absolute difference between your current Ground Angle and the tile's angle is greater than 45° (32/$20)
-		var _diff = abs(_angle mod $80 - _ang mod $80);		
-		if _diff > $20 and _diff < $60{	// if _diff > 45 and _diff < 135
-			_ang = round(_angle / $40) mod 4 * $40;
-			if (_ang == $100)
-				_ang = 0;
-		}
 	}
 	
 	return _ang;
