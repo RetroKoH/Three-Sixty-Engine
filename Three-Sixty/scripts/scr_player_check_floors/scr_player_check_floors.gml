@@ -284,12 +284,30 @@ function scr_player_check_floors_air(){
 				// Otherwise, latch to the ground
 				if (_pos >= _surface) or (_pos + _spd >= _surface) {
 					y_pos = _surface - (col_height + 1);
-					in_air = false;
-					jumping = false;
-					y_spd = 0;
-					inertia = x_spd;
 					col_angle = _tile[1];
 					col_angle_data = global.angle_data[col_angle];
+					
+					// This section recoded courtesy of Orbinaut Framework
+					if (col_angle_data.mode_ground != COL_FLOOR) {
+						// Steep slope (If floor is greater than 45 degrees, use full vertical velocity (capped at 15.75))
+						if y_spd > 15.75
+							y_spd = 15.75;
+						x_spd = 0;
+						inertia = col_angle < $80 ? -y_spd : y_spd;
+					}
+					else if col_angle > $10 and col_angle < $F0 {
+						// Shallow slope (If floor is greater than 22.5 degrees, use halved vertical velocity)
+						inertia = col_angle < $80 ? -y_spd / 2 : y_spd / 2;
+					}
+					else {
+						// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
+						y_spd = 0;
+						inertia = x_spd;	
+					}
+					
+					// Reacquire Grounded State
+					in_air = false;
+					jumping = false;
 					
 					D_TILE.tile[0] = tile_get_index(_tile[2]);
 					D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
@@ -369,12 +387,31 @@ function scr_player_check_floors_air(){
 					// Otherwise, latch to the ground
 					if (_pos >= _surface) or (_pos + _spd >= _surface) {
 						y_pos = _surface - (col_height + 1);
-						in_air = false;
-						jumping = false;
-						y_spd = 0;
-						inertia = x_spd;
 						col_angle = _tile[1];
 						col_angle_data = global.angle_data[col_angle];
+						
+						// This section recoded courtesy of Orbinaut Framework
+						if (col_angle_data.mode_ground != COL_FLOOR) {
+							// Steep slope (If floor is greater than 45 degrees, use full vertical velocity (capped at 15.75))
+							if y_spd > 15.75
+								y_spd = 15.75;
+							x_spd = 0;
+							inertia = col_angle < $80 ? -y_spd : y_spd;
+						}
+						else if col_angle > $10 and col_angle < $F0 {
+							// Shallow slope (If floor is greater than 22.5 degrees, use halved vertical velocity)
+							inertia = col_angle < $80 ? -y_spd / 2 : y_spd / 2;
+						}
+						else {
+							// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
+							y_spd = 0;
+							inertia = x_spd;	
+						}
+					
+						// Reacquire Grounded State
+						in_air = false;
+						jumping = false;
+						
 						D_TILE.tile[0] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
 						D_TILE.flip_y[0] = tile_get_flip(_tile[2]);
@@ -506,12 +543,26 @@ function scr_player_check_floors_air(){
 				_pos = (y_pos - col_height);	// Collision anchor
 				_tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);
 				_surface = _tile[0];			// Get the actual bottom side of the tile
+				var _angle = _tile[1];
 
 				// Check if we are at/within the tile's actual surface
 				if (_pos <= _surface) or (_pos + _spd <= _surface) {
 					// Snap to bottom side of tile
 					y_pos = _surface + (col_height + 1);
-					y_spd = 0;
+					
+					//if (_angle > $40 and _angle <= $61) or (_angle > $A0 and _angle <= $BF){
+					if !(_angle > $60 and _angle < $A0){
+						// Land on it if its angle steep enough
+						col_angle	= _angle;
+						col_angle_data = global.angle_data[col_angle];
+						inertia		= _angle < $80 ? -y_spd : y_spd;
+						// Reacquire Grounded State
+						in_air = false;
+						jumping = false;
+					}
+					else
+						y_spd = 0;
+
 					D_TILE.tile[1] = tile_get_index(_tile[2]);
 					D_TILE.flip_x[1] = tile_get_mirror(_tile[2]);
 					D_TILE.flip_y[1] = tile_get_flip(_tile[2]);
@@ -600,12 +651,31 @@ function scr_player_check_floors_air(){
 					// Otherwise, latch to the ground
 					if (_pos >= _surface) or (_pos + _spd >= _surface) {
 						y_pos = _surface - (col_height + 1);
-						in_air = false;
-						jumping = false;
-						y_spd = 0;
-						inertia = x_spd;
 						col_angle = _tile[1];
 						col_angle_data = global.angle_data[col_angle];
+
+						// This section recoded courtesy of Orbinaut Framework
+						if (col_angle_data.mode_ground != COL_FLOOR) {
+							// Steep slope (If floor is greater than 45 degrees, use full vertical velocity (capped at 15.75))
+							if y_spd > 15.75
+								y_spd = 15.75;
+							x_spd = 0;
+							inertia = col_angle < $80 ? -y_spd : y_spd;
+						}
+						else if col_angle > $10 and col_angle < $F0 {
+							// Shallow slope (If floor is greater than 22.5 degrees, use halved vertical velocity)
+							inertia = col_angle < $80 ? -y_spd / 2 : y_spd / 2;
+						}
+						else {
+							// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
+							y_spd = 0;
+							inertia = x_spd;	
+						}
+					
+						// Reacquire Grounded State
+						in_air = false;
+						jumping = false;
+
 						D_TILE.tile[0] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
 						D_TILE.flip_y[0] = tile_get_flip(_tile[2]);

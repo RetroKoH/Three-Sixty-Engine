@@ -34,5 +34,5 @@ for (var _i = 0; _i < 256; _i++) {
 	}
 }
 
-globalvar PLAYER; PLAYER = instance_create_layer(320, 164, "Instances", obj_player);
+globalvar PLAYER; PLAYER = instance_create_layer(220, 164, "Instances", obj_player);
 globalvar D_TILE; D_TILE = instance_create_layer(0, 0, "Instances", obj_debugtiles);
