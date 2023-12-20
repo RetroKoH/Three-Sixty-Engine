@@ -740,16 +740,16 @@ function scr_player_check_walls(){
 	switch(col_angle_data.mode_push){
 		case COL_FLOOR:
 		{
-			var _spd = max(abs(x_spd), 1) * sign(x_spd);
+			//var _spd = max(abs(x_spd), 1) * sign(x_spd);
 
 			// If moving right
-			if (_spd > 0){
+			if (x_spd > 0){
 				var _pos = x_pos + col_push;			// Collision anchor
 				var _tile = scr_tile_find_hor(col_path, _pos, _y, 1);
 				var _surface = _tile[0];				// Get the actual left side of the tile
 				
 				// Check if we are at/within the tile's actual surface
-				if (_pos >= _surface) or (_pos + _spd >= _surface) {
+				if (_pos >= _surface) {//or (_pos + _spd >= _surface) {
 					// Snap to left side of tile
 					x_pos = _surface - (col_push + 1);
 					x_spd = 0;
@@ -774,13 +774,13 @@ function scr_player_check_walls(){
 			}
 
 			// If moving left
-			else if (_spd < 0){
+			else if (x_spd < 0){
 				var _pos = x_pos - col_push;				// Collision anchor
 				var _tile = scr_tile_find_hor(col_path, _pos, _y, -1);
 				var _surface = _tile[0];					// Get the actual right side of the tile
 
 				// Check if we are at/within the tile's actual surface
-				if (_pos <= _surface) or (_pos + _spd <= _surface) {
+				if (_pos <= _surface) {//or (_pos + _spd <= _surface) {
 					// Snap to right side of tile
 					x_pos = _surface + (col_push + 1);
 					x_spd = 0;
@@ -817,16 +817,16 @@ function scr_player_check_walls(){
 		break;
 		case COL_WALL_R:
 		{
-			var _spd = max(abs(y_spd), 1) * sign(y_spd);
+			//var _spd = max(abs(y_spd), 1) * sign(y_spd);
 
 			// If moving up the wall
-			if (_spd < 0){
+			if (y_spd < 0){
 				var _pos = y_pos - col_push;			// Collision anchor
 				var _tile = scr_tile_find_vert(col_path, x, _pos, -1);
 				var _surface = _tile[0];				// Get the actual bottom side of the tile
 				
 				// Check if we are at/within the tile's actual surface
-				if (_pos <= _surface) or (_pos + _spd <= _surface) {
+				if (_pos <= _surface) {//or (_pos + _spd <= _surface) {
 					// Snap to bottom side of tile
 					y_pos = _surface + (col_push + 1);
 					y_spd = 0;
@@ -851,13 +851,13 @@ function scr_player_check_walls(){
 			}
 
 			// If moving down the wall
-			else if (_spd > 0){
+			else if (y_spd > 0){
 				var _pos = y_pos + col_push;			// Collision anchor
 				var _tile = scr_tile_find_vert(col_path, x, _pos, 1);
 				var _surface = _tile[0];				// Get the actual top side of the tile
 				
 				// Check if we are at/within the tile's actual surface
-				if (_pos >= _surface) or (_pos + _spd >= _surface) {
+				if (_pos >= _surface) {//or (_pos + _spd >= _surface) {
 					// Snap to top side of tile
 					y_pos = _surface - (col_push + 1);
 					y_spd = 0;
@@ -894,16 +894,16 @@ function scr_player_check_walls(){
 		break;
 		case COL_CEILING:
 		{
-			var _spd = max(abs(x_spd), 1) * sign(x_spd);
+			//var _spd = max(abs(x_spd), 1) * sign(x_spd);
 
 			// If moving left
-			if (_spd < 0){
+			if (x_spd < 0){
 				var _pos = x_pos - col_push;				// Collision anchor
 				var _tile = scr_tile_find_hor(col_path, _pos, y, -1);
 				var _surface = _tile[0];					// Get the actual right side of the tile
 				
 				// Check if we are at/within the tile's actual surface
-				if (_pos <= _surface) or (_pos + _spd <= _surface) {
+				if (_pos <= _surface) {//or (_pos + _spd <= _surface) {
 					// Snap to right side of tile
 					x_pos = _surface + (col_push + 1);
 					x_spd = 0;
@@ -928,13 +928,13 @@ function scr_player_check_walls(){
 			}
 
 			// If moving right
-			else if (_spd > 0){
+			else if (x_spd > 0){
 				var _pos = x_pos + col_push;			// Collision anchor
 				var _tile = scr_tile_find_hor(col_path, _pos, y, 1);
 				var _surface = _tile[0];				// Get the actual left side of the tile
 				
 				// Check if we are at/within the tile's actual surface
-				if (_pos >= _surface) or (_pos + _spd >= _surface) {
+				if (_pos >= _surface) {//or (_pos + _spd >= _surface) {
 					// Snap to left side of tile
 					x_pos = _surface - (col_push + 1);
 					x_spd = 0;
@@ -971,16 +971,16 @@ function scr_player_check_walls(){
 		break;
 		case COL_WALL_L:
 		{
-			var _spd = max(abs(y_spd), 1) * sign(y_spd);
+			//var _spd = max(abs(y_spd), 1) * sign(y_spd);
 
 			// If moving down the wall
-			if (_spd > 0){
+			if (y_spd > 0){
 				var _pos = y_pos + col_push;			// Collision anchor
 				var _tile = scr_tile_find_vert(col_path, x, _pos, 1);
 				var _surface = _tile[0];				// Get the actual top side of the tile
 				
 				// Check if we are at/within the tile's actual surface
-				if (_pos >= _surface) or (_pos + _spd >= _surface) {
+				if (_pos >= _surface) {//or (_pos + _spd >= _surface) {
 					// Snap to top side of tile
 					y_pos = _surface - (col_push + 1);
 					y_spd = 0;
@@ -1005,13 +1005,13 @@ function scr_player_check_walls(){
 			}
 
 			// If moving up the wall
-			else if (_spd < 0){
+			else if (y_spd < 0){
 				var _pos = y_pos - col_push;			// Collision anchor
 				var _tile = scr_tile_find_vert(col_path, x, _pos, -1);
 				var _surface = _tile[0];				// Get the actual bottom side of the tile
 				
 				// Check if we are at/within the tile's actual surface
-				if (_pos <= _surface) or (_pos + _spd <= _surface) {
+				if (_pos <= _surface) {//or (_pos + _spd <= _surface) {
 					// Snap to bottom side of tile
 					y_pos = _surface + (col_push + 1);
 					y_spd = 0;
