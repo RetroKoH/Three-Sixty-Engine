@@ -1,18 +1,17 @@
-///@function scr_check_walls()
-function scr_check_walls(){
+///@function scr_check_walls_debug()
+function scr_check_walls_debug(){
 	// At this point, this is only used in debug mode
-	var _spd = max(abs(x_spd), 1) * sign(x_spd);
 
 	// If moving right
-	if (_spd > 0) {
-		var _pos = x_pos + col_push;								// Collision anchor
+	if (x_spd > 0) {
+		var _pos = x_pos + col_push;						// Collision anchor
 		var _tile = scr_tile_find_hor(col_path, _pos, y + 8, 1);
-		var _surface = _tile[0];									// Get the actual left side of the tile
+		var _surface = _tile[0] - 1;						// Get the actual left side of the tile
 
 		// Check if we are at/within the tile's actual surface
-		if (_pos >= _surface) or (_pos + _spd >= _surface) {
+		if (_pos >= _surface) {
 			// Snap to left side of tile
-			x_pos = _surface - (col_push + 1);
+			x_pos = _surface - col_push;
 			x_spd = 0;
 			inertia = 0;
 			
@@ -35,15 +34,15 @@ function scr_check_walls(){
 	}
 
 	// If moving left
-	else if (_spd < 0) {
-		var _pos = x_pos - col_push;								// Collision anchor
+	else if (x_spd < 0) {
+		var _pos = x_pos - col_push;						// Collision anchor
 		var _tile = scr_tile_find_hor(col_path, _pos, y + 8, -1);
-		var _surface = _tile[0];									// Get the actual right side of the tile
+		var _surface = _tile[0] + 1;						// Get the actual right side of the tile
 
 		// Check if we are at/within the tile's actual surface
-		if (_pos <= _surface) or (_pos + _spd <= _surface) {
+		if (_pos <= _surface) {
 			// Snap to right side of tile
-			x_pos = _surface + (col_push + 1);
+			x_pos = _surface + col_push;
 			x_spd = 0;
 			inertia = 0;
 			
@@ -76,34 +75,85 @@ function scr_check_walls(){
 	}
 }
 
-///@function scr_check_floors()
-function scr_check_floors(){
+///@function scr_check_floors_debug()
+function scr_check_floors_debug(){
 	// At this point, this is only used in debug mode
-	var _spd = max(abs(y_spd), 1) * sign(y_spd);
 
 	// If moving down
-	if (_spd > 0) {
+	if (y_spd > 0) {
+		// Disable ceiling collision
+		D_TILE.tile[1] = 0;
+		D_TILE.flip_x[1] = false;
+		D_TILE.flip_y[1] = false;
+		D_TILE.cell_x[1] = 0;
+		D_TILE.cell_y[1] = 0;
+		D_TILE.color[1] = c_white;
+
 		var _pos = (y_pos + col_height);	// Collision anchor
-		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1)[0];	// Get the actual top side of the tile
+		var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);	// Get the actual top side of the tile
+		var _surface = _tile[0] - 1;
 
 		// Check if we are at/within the tile's actual surface
-		if (_pos >= _surface) or (_pos + _spd >= _surface) {
+		if (_pos >= _surface) {
 			// Snap to top side of tile
-			y_pos = _surface - (col_height + 1);
+			y_pos = _surface - col_height;
 			y_spd = 0;
+			
+			D_TILE.tile[0] = tile_get_index(_tile[2]);
+			D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
+			D_TILE.flip_y[0] = tile_get_flip(_tile[2]);
+			D_TILE.cell_x[0] = _tile[3];
+			D_TILE.cell_y[0] = _tile[4];
+			D_TILE.color[0] = _tile[5] == 0 ? c_green : c_aqua;
+		}
+
+		// No collision
+		else {
+			D_TILE.tile[0] = 0;
+			D_TILE.flip_x[0] = false;
+			D_TILE.flip_y[0] = false;
+			D_TILE.cell_x[0] = 0;
+			D_TILE.cell_y[0] = 0;
+			D_TILE.color[0] = c_white;
 		}
 	}
 
 	// If moving up
-	else if (_spd < 0) {
+	else if (y_spd < 0) {
+		// Disable floor collision
+		D_TILE.tile[0] = 0;
+		D_TILE.flip_x[0] = false;
+		D_TILE.flip_y[0] = false;
+		D_TILE.cell_x[0] = 0;
+		D_TILE.cell_y[0] = 0;
+		D_TILE.color[0] = c_white;
+
 		var _pos = (y_pos - col_height);	// Collision anchor
-		var _surface = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1)[0];	// Get the actual bottom side of the tile
+		var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);	// Get the actual bottom side of the tile
+		var _surface = _tile[0] + 1;
 
 		// Check if we are at/within the tile's actual surface
-		if (_pos <= _surface) or (_pos + _spd <= _surface) {
+		if (_pos <= _surface) {
 			// Snap to bottom side of tile
-			y_pos = _surface + (col_height + 1);
+			y_pos = _surface + col_height;
 			y_spd = 0;
+			
+			D_TILE.tile[1] = tile_get_index(_tile[2]);
+			D_TILE.flip_x[1] = tile_get_mirror(_tile[2]);
+			D_TILE.flip_y[1] = tile_get_flip(_tile[2]);
+			D_TILE.cell_x[1] = _tile[3];
+			D_TILE.cell_y[1] = _tile[4];
+			D_TILE.color[1] = _tile[5] == 0 ? c_blue : c_yellow;
+		}
+		
+		// No collision
+		else {
+			D_TILE.tile[1] = 0;
+			D_TILE.flip_x[1] = false;
+			D_TILE.flip_y[1] = false;
+			D_TILE.cell_x[1] = 0;
+			D_TILE.cell_y[1] = 0;
+			D_TILE.color[1] = c_white;
 		}
 	}
 }
@@ -295,7 +345,7 @@ function scr_tile_get_height(_tile, _index, _x){
 	var _column = _x & (TILE_SIZE - 1);
 
 	if tile_get_mirror(_tile)
-		_column = (~_x) & (TILE_SIZE - 1);
+		_column ^= (TILE_SIZE - 1);
 
 	return global.tile_heights[_index & $FF][_column];
 }
@@ -305,7 +355,7 @@ function scr_tile_get_width(_tile, _index, _y){
 	var _row = _y & (TILE_SIZE - 1);
 
 	if tile_get_flip(_tile)
-		_row = (~_y) & (TILE_SIZE - 1);
+		_row ^= (TILE_SIZE - 1);
 
 	return global.tile_widths[_index & $FF][_row];
 }
