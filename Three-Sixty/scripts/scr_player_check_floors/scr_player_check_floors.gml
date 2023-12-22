@@ -300,8 +300,9 @@ function scr_player_check_floors_air(){
 					// Check if we are at/within the tile's actual surface
 					if (_pos >= _surface) {
 						// Snap to left side of tile
-						x_pos = _surface - col_push;
-						x_spd = 0;
+						x_pos	= _surface - col_push;
+						_xp		= x_pos;
+						x_spd	= 0;
 
 						D_TILE.tile[2] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
@@ -321,8 +322,9 @@ function scr_player_check_floors_air(){
 					// Check if we are at/within the tile's actual surface
 					if (_pos <= _surface) {
 						// Snap to right side of tile
-						x_pos = _surface + col_push;
-						x_spd = 0;
+						x_pos	= _surface + col_push;
+						_xp		= x_pos;
+						x_spd	= 0;
 
 						D_TILE.tile[2] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
@@ -420,8 +422,9 @@ function scr_player_check_floors_air(){
 				// Check if we are at/within the tile's actual surface
 				if (_pos >= _surface) {
 					// Snap to left side of tile
-					x_pos = _surface - col_push;
-					x_spd = 0;
+					x_pos	= _surface - col_push;
+					_xp		= x_pos;
+					x_spd	= 0;
 
 					D_TILE.tile[2] = tile_get_index(_tile[2]);
 					D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
@@ -492,7 +495,7 @@ function scr_player_check_floors_air(){
 						else {
 							// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
 							y_spd = 0;
-							inertia = x_spd;	
+							inertia = x_spd;
 						}
 					
 						// Reacquire Grounded State
@@ -536,7 +539,7 @@ function scr_player_check_floors_air(){
 						D_TILE.color[1] = _tile[5] == 0 ? c_blue : c_yellow;
 					}
 					
-					// If not moving, don't register collision
+					// If not, don't register collision
 					else {
 						D_TILE.tile[1] = 0;
 						D_TILE.flip_x[1] = false;
@@ -574,8 +577,9 @@ function scr_player_check_floors_air(){
 					// Check if we are at/within the tile's actual surface
 					if (_pos >= _surface){
 						// Snap to left side of tile
-						x_pos = _surface - col_push;
-						x_spd = 0;
+						x_pos	= _surface - col_push;
+						_xp		= x_pos;
+						x_spd	= 0;
 
 						D_TILE.tile[2] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
@@ -595,8 +599,9 @@ function scr_player_check_floors_air(){
 					// Check if we are at/within the tile's actual surface
 					if (_pos <= _surface) {
 						// Snap to right side of tile
-						x_pos = _surface + col_push;
-						x_spd = 0;
+						x_pos	= _surface + col_push;
+						_xp		= x_pos;
+						x_spd	= 0;
 
 						D_TILE.tile[2] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
@@ -681,8 +686,9 @@ function scr_player_check_floors_air(){
 				// Check if we are at/within the tile's actual surface
 				if (_pos <= _surface) {
 					// Snap to right side of tile
-					x_pos = _surface + col_push;
-					x_spd = 0;
+					x_pos	= _surface + col_push;
+					_xp		= x_pos;
+					x_spd	= 0;
 
 					D_TILE.tile[2] = tile_get_index(_tile[2]);
 					D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
