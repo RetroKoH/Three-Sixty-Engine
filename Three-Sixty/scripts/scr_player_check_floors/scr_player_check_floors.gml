@@ -1,7 +1,97 @@
 ///@scr_player_check_floors_ground()
 function scr_player_check_floors_ground(){
+	
+	var _col_mode = col_angle_data.mode_ground;
+	
+	// Custom collision mode method - Orbinaut Framework
+	if !landing{
+		var _tolerance = $20;
+
+		var _tile;
+		switch (_col_mode){
+			case COL_FLOOR:
+			{
+				// Switch to right wall mode
+				_tile = scr_tile_find_hor(col_path, x + col_height - 2, y + col_width, 1);
+				if _tile[0] < 0
+				{
+					if _tile[1] - col_angle mod $100 < _tolerance
+						_col_mode = COL_WALL_R;
+				}
+					
+				// Switch to left wall mode
+				_tile = scr_tile_find_hor(col_path, x - col_height + 2, y + col_width, -1);
+				if _tile[0] < 0
+				{
+					if col_angle - _tile[1] < _tolerance
+						_col_mode = COL_WALL_L;
+				}
+			}
+			break;
+			case COL_WALL_R:
+			{
+				// Switch to floor mode
+				_tile = scr_tile_find_vert(col_path, x + col_width, y + col_height - 2, 1);
+				if _tile[0] < 0
+				{
+					if col_angle - _tile[1] mod $100 < _tolerance
+						_col_mode = COL_FLOOR;
+				}
+					
+				// Switch to ceiling mode
+				_tile = scr_tile_find_vert(col_path, x + col_width, y - col_height + 2, -1);
+				if _tile[0] < 0
+				{
+					if _tile[1] - col_angle < _tolerance
+						_col_mode = COL_CEILING;
+				}
+			}
+			break;
+			case COL_CEILING:
+			{
+				// Switch to right wall mode
+				_tile = scr_tile_find_hor(col_path, x + col_height - 2, y - col_width, 1);
+				if _tile[0] < 0
+				{
+					if col_angle - _tile[1] < _tolerance
+						_col_mode = COL_WALL_R;
+				}
+					
+				// Switch to left wall mode
+				_tile = scr_tile_find_hor(col_path, x - col_height + 2, y - col_width, -1);
+				if _tile[0] < 0
+				{
+					if _tile[1] - col_angle < _tolerance
+						_col_mode = COL_WALL_L;
+				}
+			}
+			break;
+			case COL_WALL_L:
+			{
+				// Switch to floor mode
+				_tile = scr_tile_find_vert(col_path, x - col_width, y + col_height - 2, 1);
+				if _tile[0] < 0
+				{
+					if _tile[1] - col_angle < _tolerance
+						_col_mode[0] = COL_FLOOR;
+				}
+					
+				// Switch to ceiling mode
+				_tile = scr_tile_find_vert(col_path, x - col_width, y - col_height + 2, -1);
+				if _tile[0] < 0
+				{
+					if col_angle - _tile[1] < _tolerance
+						_col_mode[0] = COL_CEILING;
+				}
+			}
+			break;
+		}
+	}
+	else
+		landing = false;
+	
 	// Perform collision based on current collision mode
-	switch(col_angle_data.mode_ground){
+	switch(_col_mode){
 		case COL_FLOOR:
 		{
 			var _pos = y + col_height;	// Collision anchor
@@ -730,6 +820,9 @@ function scr_player_check_floors_air(){
 		}
 		break;
 	}
+	
+	// This will disable floor mode check for one frame, allowing us to land on the ceilings safely
+	landing = true;
 }
 
 ///@function scr_player_check_walls()

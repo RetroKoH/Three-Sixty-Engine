@@ -29,3 +29,4 @@ col_angle_data	= global.angle_data[col_angle];
 
 in_air			= false;
 jumping			= false;
+landing			= false;
