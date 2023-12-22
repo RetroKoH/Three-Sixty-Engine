@@ -2,6 +2,7 @@
 function scr_player_check_floors_ground(){
 	
 	var _col_mode = col_angle_data.mode_ground;
+	var _xp = floor(x_pos), _yp = floor(y_pos);
 	
 	// Custom collision mode method - Orbinaut Framework
 	if !landing{
@@ -94,8 +95,8 @@ function scr_player_check_floors_ground(){
 	switch(_col_mode){
 		case COL_FLOOR:
 		{
-			var _pos = y + col_height;	// Collision anchor
-			var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
+			var _pos = _yp + col_height;	// Collision anchor
+			var _tile = scr_tile_find_vert2(col_path, _xp-col_width, _pos, _xp+col_width, _pos, 1);
 			var _surface = _tile[0] - 1;
 			var _angle = _tile[1];
 			
@@ -139,8 +140,8 @@ function scr_player_check_floors_ground(){
 		break;
 		case COL_WALL_R:
 		{
-			var _pos = x + col_height;	// Collision anchor
-			var _tile = scr_tile_find_hor2(col_path, _pos, y+col_width, _pos, y-col_width, 1);
+			var _pos = _xp + col_height;	// Collision anchor
+			var _tile = scr_tile_find_hor2(col_path, _pos, _yp+col_width, _pos, _yp-col_width, 1);
 			var _surface = _tile[0] - 1;
 			var _angle = _tile[1];
 			
@@ -184,8 +185,8 @@ function scr_player_check_floors_ground(){
 		break;
 		case COL_CEILING:
 		{
-			var _pos = y - col_height;	// Collision anchor
-			var _tile = scr_tile_find_vert2(col_path, x+col_width, _pos, x-col_width, _pos, -1);
+			var _pos = _yp - col_height;	// Collision anchor
+			var _tile = scr_tile_find_vert2(col_path, _xp+col_width, _pos, _xp-col_width, _pos, -1);
 			var _surface = _tile[0] + 1;
 			var _angle = _tile[1];
 			
@@ -229,8 +230,8 @@ function scr_player_check_floors_ground(){
 		break;
 		case COL_WALL_L:
 		{
-			var _pos = x - col_height;	// Collision anchor
-			var _tile = scr_tile_find_hor2(col_path, _pos, y-col_width, _pos, y+col_width, -1);
+			var _pos = _xp - col_height;	// Collision anchor
+			var _tile = scr_tile_find_hor2(col_path, _pos, _yp-col_width, _pos, _yp+col_width, -1);
 			var _surface = _tile[0] + 1;
 			var _angle = _tile[1];
 			
@@ -283,15 +284,17 @@ function scr_player_check_floors_air(){
 		_dir = x_spd > 0 ? COL_WALL_R : COL_WALL_L;
 	else
 		_dir = y_spd > 0 ? COL_FLOOR : COL_CEILING;
-	
+
+	var _xp = floor(x_pos), _yp = floor(y_pos);
+
 	switch(_dir){
 		case COL_FLOOR:
 		{
 			#region Checking walls on either side
 				// If moving right
 				if (x_spd > 0) {
-					_pos = x_pos + col_push;					// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y, 1);
+					_pos = _xp + col_push;					// Collision anchor
+					_tile = scr_tile_find_hor(col_path, _pos, _yp, 1);
 					_surface = _tile[0] - 1;					// Get the actual left side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -311,8 +314,8 @@ function scr_player_check_floors_air(){
 
 				// If moving left
 				else if (x_spd < 0) {
-					_pos = x_pos - col_push;					// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y, -1);
+					_pos = _xp - col_push;					// Collision anchor
+					_tile = scr_tile_find_hor(col_path, _pos, _yp, -1);
 					_surface = _tile[0] + 1;					// Get the actual right side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -350,12 +353,12 @@ function scr_player_check_floors_air(){
 				D_TILE.cell_y[1] = 0;
 				D_TILE.color[1] = c_white;
 
-				_pos = y_pos + col_height;	// Collision anchor
-				_tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
+				_pos = _yp + col_height;	// Collision anchor
+				_tile = scr_tile_find_vert2(col_path, _xp-col_width, _pos, _xp+col_width, _pos, 1);
 				_surface = _tile[0] - 1;
 
 				_diff = _surface - _pos;					// Get distance to the ground
-				_dist = min(4 + abs(floor(x_pos)), 14);		// From Orbinaut Framework
+				_dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
 
 				// If too far, don't register collision
 				if (_diff > _dist) {
@@ -410,8 +413,8 @@ function scr_player_check_floors_air(){
 		case COL_WALL_R:
 		{
 			#region Checking walls on right side
-				_pos = x_pos + col_push;					// Collision anchor
-				_tile = scr_tile_find_hor(col_path, _pos, y, 1);
+				_pos = _xp + col_push;					// Collision anchor
+				_tile = scr_tile_find_hor(col_path, _pos, _yp, 1);
 				_surface = _tile[0] - 1;					// Get the actual left side of the tile
 
 				// Check if we are at/within the tile's actual surface
@@ -450,12 +453,12 @@ function scr_player_check_floors_air(){
 					D_TILE.cell_y[1] = 0;
 					D_TILE.color[1] = c_white;
 					
-					_pos = y_pos + col_height;					// Collision anchor
-					_tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
+					_pos = _yp + col_height;					// Collision anchor
+					_tile = scr_tile_find_vert2(col_path, _xp-col_width, _pos, _xp+col_width, _pos, 1);
 					_surface = _tile[0] - 1;					// Get the actual top side of the tile
 					
 					_diff = _surface - _pos;					// Get distance to the ground
-					_dist = min(4 + abs(floor(x_pos)), 14);		// From Orbinaut Framework
+					_dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
 
 					// If too far, don't register collision
 					if (_diff > _dist) {
@@ -515,8 +518,8 @@ function scr_player_check_floors_air(){
 					D_TILE.cell_y[0] = 0;
 					D_TILE.color[0] = c_white;
 
-					_pos = y_pos - col_height;		// Collision anchor
-					_tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);
+					_pos = _yp - col_height;		// Collision anchor
+					_tile = scr_tile_find_vert2(col_path, _xp-col_width, _pos, _xp+col_width, _pos, -1);
 					_surface = _tile[0] + 1;		// Get the actual bottom side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -564,8 +567,8 @@ function scr_player_check_floors_air(){
 			#region Checking walls on either side
 				// If moving right
 				if (x_spd > 0) {
-					_pos = x_pos + col_push;					// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y, 1);
+					_pos = _xp + col_push;					// Collision anchor
+					_tile = scr_tile_find_hor(col_path, _pos, _yp, 1);
 					_surface = _tile[0] - 1;					// Get the actual left side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -585,8 +588,8 @@ function scr_player_check_floors_air(){
 
 				// If moving left
 				else if (x_spd < 0) {
-					_pos = x_pos - col_push;					// Collision anchor
-					_tile = scr_tile_find_hor(col_path, _pos, y, -1);
+					_pos = _xp - col_push;					// Collision anchor
+					_tile = scr_tile_find_hor(col_path, _pos, _yp, -1);
 					_surface = _tile[0] + 1;					// Get the actual right side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -624,8 +627,8 @@ function scr_player_check_floors_air(){
 				D_TILE.cell_y[0] = 0;
 				D_TILE.color[0] = c_white;
 
-				_pos = y_pos - col_height;		// Collision anchor
-				_tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);
+				_pos = _yp - col_height;		// Collision anchor
+				_tile = scr_tile_find_vert2(col_path, _xp-col_width, _pos, _xp+col_width, _pos, -1);
 				_surface = _tile[0] + 1;		// Get the actual bottom side of the tile
 				var _angle = _tile[1];
 
@@ -671,8 +674,8 @@ function scr_player_check_floors_air(){
 		case COL_WALL_L:
 		{
 			#region Checking walls on left side
-				_pos = x_pos - col_push;					// Collision anchor
-				_tile = scr_tile_find_hor(col_path, _pos, y, -1);
+				_pos = _xp - col_push;					// Collision anchor
+				_tile = scr_tile_find_hor(col_path, _pos, _yp, -1);
 				_surface = _tile[0] + 1;					// Get the actual right side of the tile
 
 				// Check if we are at/within the tile's actual surface
@@ -711,12 +714,12 @@ function scr_player_check_floors_air(){
 					D_TILE.cell_y[1] = 0;
 					D_TILE.color[1] = c_white;
 
-					_pos = y_pos + col_height;		// Collision anchor
-					_tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);
+					_pos = _yp + col_height;		// Collision anchor
+					_tile = scr_tile_find_vert2(col_path, _xp-col_width, _pos, _xp+col_width, _pos, 1);
 					_surface = _tile[0] - 1;		// Get the actual top side of the tile
 					
 					_diff = _surface - _pos;					// Get distance to the ground
-					_dist = min(4 + abs(floor(x_pos)), 14);		// From Orbinaut Framework
+					_dist = min(4 + abs(floor(x_spd)), 14);		// From Orbinaut Framework
 
 					// If too far, don't register collision
 					if (_diff > _dist) {
@@ -776,8 +779,8 @@ function scr_player_check_floors_air(){
 					D_TILE.cell_y[0] = 0;
 					D_TILE.color[0] = c_white;
 
-					_pos = y_pos - col_height;		// Collision anchor
-					_tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);
+					_pos = _yp - col_height;		// Collision anchor
+					_tile = scr_tile_find_vert2(col_path, _xp-col_width, _pos, _xp+col_width, _pos, -1);
 					_surface = _tile[0] + 1;		// Get the actual bottom side of the tile
 
 					// Check if we are at/within the tile's actual surface
@@ -830,16 +833,17 @@ function scr_player_check_walls(){
 	// Don't push when on non-flat walls or ceilings
 	if (col_angle > $40 and col_angle < $C0) and col_angle != $80
 		return;
-	
-	// Offset sensor on flat ground
-	var _y = y + (8 * (col_angle == 0));
+	var _xp = floor(x_pos), _yp = floor(y_pos);
 
 	switch(col_angle_data.mode_push){
 		case COL_FLOOR:
 		{
+			// Offset sensor on flat ground
+			var _y = _yp + (8 * (col_angle == 0));
+
 			// If moving right
 			if (x_spd > 0){
-				var _pos = x_pos + col_push;			// Collision anchor
+				var _pos = _xp + col_push;			// Collision anchor
 				var _tile = scr_tile_find_hor(col_path, _pos, _y, 1);
 				var _surface = _tile[0] - 1;			// Get the actual left side of the tile
 				
@@ -870,7 +874,7 @@ function scr_player_check_walls(){
 
 			// If moving left
 			else if (x_spd < 0){
-				var _pos = x_pos - col_push;				// Collision anchor
+				var _pos = _xp - col_push;				// Collision anchor
 				var _tile = scr_tile_find_hor(col_path, _pos, _y, -1);
 				var _surface = _tile[0] + 1;				// Get the actual right side of the tile
 
@@ -914,8 +918,8 @@ function scr_player_check_walls(){
 		{
 			// If moving up the wall
 			if (y_spd < 0){
-				var _pos = y_pos - col_push;			// Collision anchor
-				var _tile = scr_tile_find_vert(col_path, x, _pos, -1);
+				var _pos = _yp - col_push;			// Collision anchor
+				var _tile = scr_tile_find_vert(col_path, _xp, _pos, -1);
 				var _surface = _tile[0] + 1;			// Get the actual bottom side of the tile
 				
 				// Check if we are at/within the tile's actual surface
@@ -945,8 +949,8 @@ function scr_player_check_walls(){
 
 			// If moving down the wall
 			else if (y_spd > 0){
-				var _pos = y_pos + col_push;			// Collision anchor
-				var _tile = scr_tile_find_vert(col_path, x, _pos, 1);
+				var _pos = _yp + col_push;			// Collision anchor
+				var _tile = scr_tile_find_vert(col_path, _xp, _pos, 1);
 				var _surface = _tile[0] - 1;			// Get the actual top side of the tile
 				
 				// Check if we are at/within the tile's actual surface
@@ -989,8 +993,8 @@ function scr_player_check_walls(){
 		{
 			// If moving left
 			if (x_spd < 0){
-				var _pos = x_pos - col_push;				// Collision anchor
-				var _tile = scr_tile_find_hor(col_path, _pos, y, -1);
+				var _pos = _xp - col_push;				// Collision anchor
+				var _tile = scr_tile_find_hor(col_path, _pos, _yp, -1);
 				var _surface = _tile[0] + 1;				// Get the actual right side of the tile
 				
 				// Check if we are at/within the tile's actual surface
@@ -1021,8 +1025,8 @@ function scr_player_check_walls(){
 
 			// If moving right
 			else if (x_spd > 0){
-				var _pos = x_pos + col_push;			// Collision anchor
-				var _tile = scr_tile_find_hor(col_path, _pos, y, 1);
+				var _pos = _xp + col_push;			// Collision anchor
+				var _tile = scr_tile_find_hor(col_path, _pos, _yp, 1);
 				var _surface = _tile[0] - 1;			// Get the actual left side of the tile
 				
 				// Check if we are at/within the tile's actual surface
@@ -1066,8 +1070,8 @@ function scr_player_check_walls(){
 		{
 			// If moving down the wall
 			if (y_spd > 0){
-				var _pos = y_pos + col_push;			// Collision anchor
-				var _tile = scr_tile_find_vert(col_path, x, _pos, 1);
+				var _pos = _yp + col_push;			// Collision anchor
+				var _tile = scr_tile_find_vert(col_path, _xp, _pos, 1);
 				var _surface = _tile[0] - 1;			// Get the actual top side of the tile
 				
 				// Check if we are at/within the tile's actual surface
@@ -1097,8 +1101,8 @@ function scr_player_check_walls(){
 
 			// If moving up the wall
 			else if (y_spd < 0){
-				var _pos = y_pos - col_push;			// Collision anchor
-				var _tile = scr_tile_find_vert(col_path, x, _pos, -1);
+				var _pos = _yp - col_push;			// Collision anchor
+				var _tile = scr_tile_find_vert(col_path, _xp, _pos, -1);
 				var _surface = _tile[0] + 1;			// Get the actual bottom side of the tile
 				
 				// Check if we are at/within the tile's actual surface

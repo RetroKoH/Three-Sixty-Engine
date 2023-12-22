@@ -33,7 +33,7 @@ function scr_ctrl_player_normal(){
 	scr_player_slope_resist();			// Adjust inertia based on collision angle.
 	scr_player_move_ground();			// Move along the ground and apply friction/deceleration.
 	x_pos += x_spd;	y_pos += y_spd;		// Use speeds to move player
-	scr_player_check_walls();			// Check for walls along the ground
+	scr_player_check_walls();			// Check for walls along the ground (Moved)
 	scr_player_check_floors_ground();	// Floor collision and angle check occurs.
 	scr_player_slope_repel();			// Push down slopes and fall from walls/ceilings/loops.
 }
