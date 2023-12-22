@@ -23,7 +23,7 @@ jmp_spd			= 6.5;
 col_width		= 9;
 col_height		= $13;	// (19)
 col_push		= 10;	// constant
-col_path		= layer_tilemap_get_id("Collision");
+col_path		= global.map_id[0];
 col_angle		= 0;
 col_angle_data	= global.angle_data[col_angle];
 

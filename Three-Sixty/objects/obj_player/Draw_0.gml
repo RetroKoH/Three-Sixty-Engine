@@ -1,7 +1,10 @@
 /// @description Draw Mask and Sensors
 
 var _rot = (col_angle_data.mode_ground * 90);
-draw_sprite_ext(sprite_index, 0, x, y, 1, 1, _rot, c_white, 1);
+if col_path = global.map_id[0]
+	draw_sprite_ext(sprite_index, 0, x, y, 1, 1, _rot, c_white, 1);
+else
+	draw_sprite_ext(sprite_index, 1, x, y, 1, 1, _rot, c_white, 1);
 
 if (in_air){
 	// Floor sensors (Always at x +/- width, y + height)
