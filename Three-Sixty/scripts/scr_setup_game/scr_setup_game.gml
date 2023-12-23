@@ -3,6 +3,7 @@ function scr_setup_game(){
 	scr_setup_macros();
 	scr_setup_globals();
 	scr_setup_collision();
+	scr_setup_animations();
 
 	random_set_seed(randomise());
 	room_goto(room_test);
@@ -58,4 +59,11 @@ function scr_setup_collision(){
 	// Collision Tile Layers
 	global.map_id[0] = layer_tilemap_get_id(layer_get_id("Col_Layer_1"));
 	global.map_id[1] = layer_tilemap_get_id(layer_get_id("Col_Layer_2"));
+}
+
+///@function scr_setup_animations()
+function scr_setup_animations(){
+	global.AnimsIndex = [];	// Every script below pushes an animation into this index
+
+	animtable_PLAYERS();
 }

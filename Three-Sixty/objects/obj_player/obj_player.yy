@@ -12,8 +12,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "Player",
+    "path": "folders/Game Objects/Player.yy",
   },
   "parentObjectId": null,
   "persistent": false,
@@ -32,8 +32,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "spr_mask_player",
-    "path": "sprites/spr_mask_player/spr_mask_player.yy",
+    "name": "spr_debug_player",
+    "path": "sprites/spr_debug_player/spr_debug_player.yy",
   },
   "spriteMaskId": null,
   "visible": true,
