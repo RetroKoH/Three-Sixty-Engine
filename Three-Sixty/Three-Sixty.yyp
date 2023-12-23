@@ -27,6 +27,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tile Sets","folderPath":"folders/Tile Sets.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Debug","folderPath":"folders/Tile Sets/Debug.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Setup","folderPath":"folders/Scripts/Setup.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"anglemap.bin","CopyToMask":-1,"filePath":"datafiles",},
@@ -40,9 +41,10 @@
   },
   "resources": [
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
-    {"id":{"name":"scr_angle_set_quadrants","path":"scripts/scr_angle_set_quadrants/scr_angle_set_quadrants.yy",},},
+    {"id":{"name":"scr_setup_angle_quadrants","path":"scripts/scr_setup_angle_quadrants/scr_setup_angle_quadrants.yy",},},
     {"id":{"name":"scr_player_move","path":"scripts/scr_player_move/scr_player_move.yy",},},
     {"id":{"name":"scr_player_check_floors","path":"scripts/scr_player_check_floors/scr_player_check_floors.yy",},},
+    {"id":{"name":"room_init","path":"rooms/room_init/room_init.yy",},},
     {"id":{"name":"obj_pathswap_v","path":"objects/obj_pathswap_v/obj_pathswap_v.yy",},},
     {"id":{"name":"obj_debugtiles","path":"objects/obj_debugtiles/obj_debugtiles.yy",},},
     {"id":{"name":"spr_tile_collision","path":"sprites/spr_tile_collision/spr_tile_collision.yy",},},
@@ -57,9 +59,11 @@
     {"id":{"name":"spr_mask_player","path":"sprites/spr_mask_player/spr_mask_player.yy",},},
     {"id":{"name":"scr_load_col_maps","path":"scripts/scr_load_col_maps/scr_load_col_maps.yy",},},
     {"id":{"name":"spr_planned_tiles","path":"sprites/spr_planned_tiles/spr_planned_tiles.yy",},},
+    {"id":{"name":"scr_setup_game","path":"scripts/scr_setup_game/scr_setup_game.yy",},},
     {"id":{"name":"room_test","path":"rooms/room_test/room_test.yy",},},
   ],
   "RoomOrderNodes": [
+    {"roomId":{"name":"room_init","path":"rooms/room_init/room_init.yy",},},
     {"roomId":{"name":"room_test","path":"rooms/room_test/room_test.yy",},},
   ],
   "templateType": "game",

@@ -1,5 +1,5 @@
-///@function scr_angle_set_ground_quadrants(angle)
-function scr_angle_set_ground_quadrants(_angle){
+///@function scr_setup_angle_quadrants_ground(angle)
+function scr_setup_angle_quadrants_ground(_angle){
 	if _angle <= $20 or _angle >= $E0		// 0-45; 315-360
 		return COL_FLOOR;
 
@@ -13,8 +13,8 @@ function scr_angle_set_ground_quadrants(_angle){
 		return COL_WALL_L;
 }
 
-///@function scr_angle_set_push_quadrants(angle)
-function scr_angle_set_push_quadrants(_angle){
+///@function scr_setup_angle_quadrants_air(angle)
+function scr_setup_angle_quadrants_air(_angle){
 	if _angle < $20 or _angle >= $E1		// 0-44; 316-360
 		return COL_FLOOR;
 
