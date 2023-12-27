@@ -4,7 +4,10 @@ function scr_player_jump(){
 		x_spd -= jmp_spd * col_angle_data.sine;
 		y_spd -= jmp_spd * col_angle_data.cosine;
 		in_air = true;
+		pushing	= false;
 		jumping = true;
+		move_lock = 0;
+		anim_ID	= ANI_PLAYER.ROLL;
 
 		return true;
 	}

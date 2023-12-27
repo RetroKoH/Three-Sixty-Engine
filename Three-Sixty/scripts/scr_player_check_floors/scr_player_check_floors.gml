@@ -398,6 +398,8 @@ function scr_player_check_floors_air(){
 					}
 					
 					// Reacquire Grounded State
+					anim_ID	= ANI_PLAYER.WALK;
+					pushing = false;
 					in_air = false;
 					jumping = false;
 					
@@ -499,6 +501,8 @@ function scr_player_check_floors_air(){
 						}
 					
 						// Reacquire Grounded State
+						anim_ID	= ANI_PLAYER.WALK;
+						pushing = false;
 						in_air = false;
 						jumping = false;
 						
@@ -648,7 +652,10 @@ function scr_player_check_floors_air(){
 						col_angle	= _angle;
 						col_angle_data = global.angle_data[col_angle];
 						inertia		= _angle < $80 ? -y_spd : y_spd;
+
 						// Reacquire Grounded State
+						anim_ID	= ANI_PLAYER.WALK;
+						pushing = false;
 						in_air = false;
 						jumping = false;
 					}
@@ -763,6 +770,8 @@ function scr_player_check_floors_air(){
 						}
 					
 						// Reacquire Grounded State
+						anim_ID	= ANI_PLAYER.WALK;
+						pushing = false;
 						in_air = false;
 						jumping = false;
 
@@ -859,6 +868,7 @@ function scr_player_check_walls(){
 					x_pos = _surface - col_push;
 					x_spd = 0;
 					inertia = 0;
+					pushing = true;
 			
 					D_TILE.tile[2] = tile_get_index(_tile[2]);
 					D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);
@@ -890,6 +900,7 @@ function scr_player_check_walls(){
 					x_pos = _surface + col_push;
 					x_spd = 0;
 					inertia = 0;
+					pushing = true;
 			
 					D_TILE.tile[2] = tile_get_index(_tile[2]);
 					D_TILE.flip_x[2] = tile_get_mirror(_tile[2]);

@@ -27,6 +27,10 @@ col_path		= global.map_id[0];
 col_angle		= 0;
 col_angle_data	= global.angle_data[col_angle];
 
+orientation		= 1;		// 1 = RIGHT. -1 = LEFT.
 in_air			= false;
 jumping			= false;
 landing			= false;
+pushing			= false;
+
+scr_gfunc_anim_init(true, global.AnimTable_PlayerSonic, 0);

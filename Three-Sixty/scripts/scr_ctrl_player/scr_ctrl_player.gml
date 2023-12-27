@@ -39,7 +39,7 @@ function scr_ctrl_player_normal(){
 }
 
 ///@function scr_ctrl_player_air()
-function scr_ctrl_player_air() {
+function scr_ctrl_player_air(){
 	scr_player_jump_height();
 	scr_player_move_air();
 	x_pos += x_spd;

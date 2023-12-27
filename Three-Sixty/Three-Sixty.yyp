@@ -31,6 +31,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Player","folderPath":"folders/Game Objects/Player.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"1. Sonic","folderPath":"folders/Game Objects/Player/1. Sonic.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"0 Masks","folderPath":"folders/Game Objects/Player/0 Masks.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"In-Game Functions","folderPath":"folders/Scripts/In-Game Functions.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"anglemap.bin","CopyToMask":-1,"filePath":"datafiles",},
@@ -79,6 +80,7 @@
     {"id":{"name":"spr_sonic_transform","path":"sprites/spr_sonic_transform/spr_sonic_transform.yy",},},
     {"id":{"name":"spr_debug_line","path":"sprites/spr_debug_line/spr_debug_line.yy",},},
     {"id":{"name":"spr_sonic_spindash","path":"sprites/spr_sonic_spindash/spr_sonic_spindash.yy",},},
+    {"id":{"name":"scr_gfunc_anims","path":"scripts/scr_gfunc_anims/scr_gfunc_anims.yy",},},
     {"id":{"name":"scr_ctrl_player","path":"scripts/scr_ctrl_player/scr_ctrl_player.yy",},},
     {"id":{"name":"scr_setup_anims","path":"scripts/scr_setup_anims/scr_setup_anims.yy",},},
     {"id":{"name":"spr_debug_center","path":"sprites/spr_debug_center/spr_debug_center.yy",},},
