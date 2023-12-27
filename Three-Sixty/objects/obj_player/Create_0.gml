@@ -20,17 +20,19 @@ fric			= 0.046875;
 top_spd			= 6;
 jmp_spd			= 6.5;
 
-col_width		= 9;
-col_height		= $13;	// (19)
-col_push		= 10;	// constant
+col_width		= WIDTH_MAIN;
+col_height		= HEIGHT_MAIN;
+col_height_def	= col_height;
+col_push		= WIDTH_PUSH;	// constant
 col_path		= global.map_id[0];
 col_angle		= 0;
 col_angle_data	= global.angle_data[col_angle];
 
 orientation		= 1;		// 1 = RIGHT. -1 = LEFT.
 in_air			= false;
+rolling			= false;
+pushing			= false;
 jumping			= false;
 landing			= false;
-pushing			= false;
 
 scr_gfunc_anim_init(true, global.AnimTable_PlayerSonic, 0);

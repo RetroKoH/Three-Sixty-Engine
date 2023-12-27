@@ -287,6 +287,7 @@ function scr_player_check_floors_air(){
 
 	var _xp = floor(x_pos), _yp = floor(y_pos);
 
+// NOTE: There is a small bug caused by triggering the push sensor on quarterpipes that causes a zip (Mainly Upper Left)
 	switch(_dir){
 		case COL_FLOOR:
 		{
@@ -397,11 +398,7 @@ function scr_player_check_floors_air(){
 						inertia = x_spd;	
 					}
 					
-					// Reacquire Grounded State
-					anim_ID	= ANI_PLAYER.WALK;
-					pushing = false;
-					in_air = false;
-					jumping = false;
+					scr_player_acquire_floor();
 					
 					D_TILE.tile[0] = tile_get_index(_tile[2]);
 					D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
@@ -500,11 +497,7 @@ function scr_player_check_floors_air(){
 							inertia = x_spd;
 						}
 					
-						// Reacquire Grounded State
-						anim_ID	= ANI_PLAYER.WALK;
-						pushing = false;
-						in_air = false;
-						jumping = false;
+						scr_player_acquire_floor();
 						
 						D_TILE.tile[0] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
@@ -653,11 +646,7 @@ function scr_player_check_floors_air(){
 						col_angle_data = global.angle_data[col_angle];
 						inertia		= _angle < $80 ? -y_spd : y_spd;
 
-						// Reacquire Grounded State
-						anim_ID	= ANI_PLAYER.WALK;
-						pushing = false;
-						in_air = false;
-						jumping = false;
+						scr_player_acquire_floor();
 					}
 					else
 						y_spd = 0;
@@ -769,11 +758,7 @@ function scr_player_check_floors_air(){
 							inertia = x_spd;	
 						}
 					
-						// Reacquire Grounded State
-						anim_ID	= ANI_PLAYER.WALK;
-						pushing = false;
-						in_air = false;
-						jumping = false;
+						scr_player_acquire_floor();
 
 						D_TILE.tile[0] = tile_get_index(_tile[2]);
 						D_TILE.flip_x[0] = tile_get_mirror(_tile[2]);
@@ -838,9 +823,6 @@ function scr_player_check_floors_air(){
 		}
 		break;
 	}
-	
-	// This will disable floor mode check for one frame, allowing us to land on the ceilings safely
-	landing = true;
 }
 
 ///@function scr_player_check_walls()
@@ -1159,4 +1141,23 @@ function scr_player_check_walls(){
 		}
 		break;
 	}
+}
+
+///@function scr_player_acquire_floor()
+function scr_player_acquire_floor(){
+	var _h = col_height;			// Store current height
+	col_height	= col_height_def;	// Reset collision box
+	col_width	= WIDTH_MAIN;
+					
+	if (rolling)			// If Sonic is spinning
+	{
+		rolling		= false;			// Clear spin status
+		anim_ID		= ANI_PLAYER.WALK;
+		y_pos		-= col_height_def - _h;	// Pop y-pos out using stored height
+	}
+
+	pushing		= false;
+	in_air		= false;
+	jumping		= false;
+	landing		= true;		// Disables floor mode check for one frame, allowing safe ceiling landing
 }

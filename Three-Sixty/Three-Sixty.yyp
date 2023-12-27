@@ -69,6 +69,7 @@
     {"id":{"name":"spr_sonic_balance_flip","path":"sprites/spr_sonic_balance_flip/spr_sonic_balance_flip.yy",},},
     {"id":{"name":"spr_char_null","path":"sprites/spr_char_null/spr_char_null.yy",},},
     {"id":{"name":"spr_sonic_death","path":"sprites/spr_sonic_death/spr_sonic_death.yy",},},
+    {"id":{"name":"scr_player_roll","path":"scripts/scr_player_roll/scr_player_roll.yy",},},
     {"id":{"name":"spr_sonic_run","path":"sprites/spr_sonic_run/spr_sonic_run.yy",},},
     {"id":{"name":"spr_sonic_maskL","path":"sprites/spr_sonic_maskL/spr_sonic_maskL.yy",},},
     {"id":{"name":"scr_player_jump","path":"scripts/scr_player_jump/scr_player_jump.yy",},},

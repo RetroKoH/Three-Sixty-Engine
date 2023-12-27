@@ -20,6 +20,16 @@ function scr_setup_macros(){
 	#macro COL_WALL_R		1
 	#macro COL_CEILING		2
 	#macro COL_WALL_L		3
+
+	// Player Size macro
+	#macro HEIGHT_MAIN		$13	// Standard height (19)
+	#macro HEIGHT_SHORT		$F	// Tails' standing height (15)
+	#macro HEIGHT_ROLL		$E	// Rolling height (14)
+	#macro HEIGHT_GLIDE		$A	// Gliding height (10)
+	#macro WIDTH_MAIN		9	// Standard Width
+	#macro WIDTH_ROLL		7	// Rolling Width
+	#macro WIDTH_GLIDE		$A	// Gliding Width (10)
+	#macro WIDTH_PUSH		$A	// Pushing Width (10)
 }
 
 ///@function scr_setup_globals()

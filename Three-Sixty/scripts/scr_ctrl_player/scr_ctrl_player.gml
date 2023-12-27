@@ -8,7 +8,10 @@ function scr_ctrl_player(){
 			scr_ctrl_player_air();
 
 		else
-			scr_ctrl_player_normal();
+			if (rolling)
+				scr_ctrl_player_rolling();
+			else
+				scr_ctrl_player_normal();
 	}
 }
 
@@ -30,8 +33,20 @@ function scr_ctrl_player_debug(){
 ///@function scr_ctrl_player_normal()
 function scr_ctrl_player_normal(){
 	if scr_player_jump()	exit;		// *** Check for starting a jump.
-	scr_player_slope_resist();			// Adjust inertia based on collision angle.
+	scr_player_slope_resist(false);		// Adjust inertia based on collision angle.
 	scr_player_move_ground();			// Move along the ground and apply friction/deceleration.
+	scr_player_roll();					// Check for starting a roll.
+	x_pos += x_spd;	y_pos += y_spd;		// Use speeds to move player
+	scr_player_check_walls();			// Check for walls along the ground (Moved)
+	scr_player_check_floors_ground();	// Floor collision and angle check occurs.
+	scr_player_slope_repel();			// Push down slopes and fall from walls/ceilings/loops.
+}
+
+///@function scr_ctrl_player_rolling()
+function scr_ctrl_player_rolling(){
+	if scr_player_jump()	exit;		// *** Check for starting a jump.
+	scr_player_slope_resist(true);		// Adjust inertia based on collision angle.
+	scr_player_move_rolling();			// Move along the ground and apply friction/deceleration.
 	x_pos += x_spd;	y_pos += y_spd;		// Use speeds to move player
 	scr_player_check_walls();			// Check for walls along the ground (Moved)
 	scr_player_check_floors_ground();	// Floor collision and angle check occurs.

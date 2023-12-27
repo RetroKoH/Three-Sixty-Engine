@@ -81,16 +81,76 @@ function scr_player_move_ground(){
 	y_spd = inertia * -(col_angle_data.sine);
 }
 
-///@function scr_player_slope_resist()
-function scr_player_slope_resist(){
+///@function scr_player_move_rolling()
+function scr_player_move_rolling(){
+	var _fric = accel / 2; //.0234375
+	var _dir = (key_right - key_left);	// Movement based on key control.
+	
+	// If pressing left
+	if (_dir == -1) {
+	    if inertia == 0	{
+			orientation = -1;
+			anim_ID = ANI_PLAYER.ROLL;
+		}
+	    else if inertia > 0
+			inertia = (inertia >= 0.125) ? inertia - 0.125 : 0;
+	}
+
+	// If pressing right
+	else if (_dir == 1) {
+	    if inertia == 0 {
+			orientation = 1;
+			anim_ID = ANI_PLAYER.ROLL;
+		}
+	    else if inertia < 0
+			inertia = (inertia <= -0.125) ? inertia + 0.125 : 0;
+	}
+
+	// The following is applied constantly throughout rolling.
+	if (inertia < 0)
+		inertia = (inertia <= -_fric) ? inertia + _fric : 0;	// Friction when rolling left
+
+	else if (inertia > 0)
+		inertia = (inertia >= _fric) ? inertia - _fric : 0;		// Friction when rolling right
+
+	// If stopped
+	if (inertia == 0){
+		rolling		=  false;
+		y_pos		-= col_height_def - col_height;
+		col_height	=  col_height_def;
+		col_width	=  WIDTH_MAIN;
+		anim_ID		=  ANI_PLAYER.IDLE;
+	}
+
+	// Apply to x and y speeds using the acquired gsp. Rolling has a speed cap of 16 pixels/step.
+	x_spd	= inertia * col_angle_data.cosine;
+	y_spd	= inertia * -(col_angle_data.sine);
+
+	// Should this cap inertia in some manner instead?
+	if (x_spd > 16)			x_spd = 16;
+	else if (x_spd < -16)	x_spd = -16;
+}
+
+///@function scr_player_slope_resist(rolling)
+function scr_player_slope_resist(_rolling){
 	// Exit if on ceiling.
 	if (col_angle_data.mode_ground == COL_CEILING)
 		exit;
 	
-	var _slp = 0.125 * col_angle_data.sine;
+	var _sine = col_angle_data.sine;
 	
-	if (abs(_slp) > 0.05078125)
-		inertia -= _slp;
+	/*	gsp-=.078125*a;	// if rolling uphill
+		gsp-=.3125*a;	// if rolling downhill*/
+	if (_rolling)
+		inertia -= (sign(inertia) == sign(_sine)) ? .078125 * _sine : .3125 * _sine;
+	
+	// Standard
+	else {
+		var _slp = 0.125 * _sine;
+		
+		if (inertia != 0) or (abs(_slp) > 0.05078125)
+			inertia -= _slp;
+	}
 }
 
 ///@function scr_player_slope_repel()
