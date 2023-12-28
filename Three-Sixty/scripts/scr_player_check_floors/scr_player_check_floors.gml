@@ -478,22 +478,9 @@ function scr_player_check_floors_air(){
 						col_angle_data = global.angle_data[col_angle];
 						
 						// This section recoded courtesy of Orbinaut Framework
-						if (col_angle_data.mode_ground != COL_FLOOR) {
-							// Steep slope (If floor is greater than 45 degrees, use full vertical velocity (capped at 15.75))
-							if y_spd > 15.75
-								y_spd = 15.75;
-							x_spd = 0;
-							inertia = col_angle < $80 ? -y_spd : y_spd;
-						}
-						else if col_angle > $10 and col_angle < $F0 {
-							// Shallow slope (If floor is greater than 22.5 degrees, use halved vertical velocity)
-							inertia = col_angle < $80 ? -y_spd / 2 : y_spd / 2;
-						}
-						else {
-							// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
-							y_spd = 0;
-							inertia = x_spd;
-						}
+						// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
+						y_spd = 0;
+						inertia = x_spd;
 					
 						scr_player_acquire_floor();
 						
@@ -739,22 +726,9 @@ function scr_player_check_floors_air(){
 						col_angle_data = global.angle_data[col_angle];
 
 						// This section recoded courtesy of Orbinaut Framework
-						if (col_angle_data.mode_ground != COL_FLOOR) {
-							// Steep slope (If floor is greater than 45 degrees, use full vertical velocity (capped at 15.75))
-							if y_spd > 15.75
-								y_spd = 15.75;
-							x_spd = 0;
-							inertia = col_angle < $80 ? -y_spd : y_spd;
-						}
-						else if col_angle > $10 and col_angle < $F0 {
-							// Shallow slope (If floor is greater than 22.5 degrees, use halved vertical velocity)
-							inertia = col_angle < $80 ? -y_spd / 2 : y_spd / 2;
-						}
-						else {
-							// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
-							y_spd = 0;
-							inertia = x_spd;	
-						}
+						// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
+						y_spd = 0;
+						inertia = x_spd;
 					
 						scr_player_acquire_floor();
 
