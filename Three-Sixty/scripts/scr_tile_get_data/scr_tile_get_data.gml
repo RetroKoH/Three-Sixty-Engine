@@ -158,26 +158,36 @@ function scr_check_floors_debug(){
 	}
 }
 
-///@function scr_tile_find(collision path, x, y)
-function scr_tile_find(_col_path, _x, _y){
+///@function scr_tile_find(collision path, x, y, tile types)
+function scr_tile_find(_col_path, _x, _y, _bitfield){
 	var _tile = tilemap_get_at_pixel(_col_path, _x, _y);
-	
-	if (_tile == -1)	return 0;
-	else				return _tile;
+	if (_tile == -1)
+		return 0;
+
+	else{
+		// $00-FF = 1. $100-1FF = 2. $200-2FF = 4. These correspond to solidity types.
+		var _type = 1 << (tile_get_index(_tile) >> 8);
+
+		// If we are looking for this tile type, return the tile.
+		if (_type & _bitfield)		
+			return _tile;
+		else
+			return 0;
+	}
 }
 
-///@function scr_tile_find_hor(collision path, x, y, direction)
-function scr_tile_find_hor(_col_path, _x, _y, _dir){
+///@function scr_tile_find_hor(collision path, x, y, direction, tile types)
+function scr_tile_find_hor(_col_path, _x, _y, _dir, _bitfield){
 	var _snap = TILE_SIZE - 1;
 	var _shift = TILE_SIZE * _dir;
-	var _tile = scr_tile_find(_col_path, _x, _y);
+	var _tile = scr_tile_find(_col_path, _x, _y, _bitfield);
 	var _index = tile_get_index(_tile);
 	var _width = scr_tile_get_width(_tile, _index, _y);
 
 	// If an empty tile is found, extend
 	if !_width {
 		_x += _shift;
-		_tile = scr_tile_find(_col_path, _x, _y);
+		_tile = scr_tile_find(_col_path, _x, _y, _bitfield);
 		_index = tile_get_index(_tile);
 		_width = scr_tile_get_width(_tile, _index, _y);
 	}
@@ -186,7 +196,7 @@ function scr_tile_find_hor(_col_path, _x, _y, _dir){
 	else if (_width == TILE_SIZE) {
 		var _prev = [_tile, _index];
 		_x -= _shift;
-		_tile = scr_tile_find(_col_path, _x, _y);
+		_tile = scr_tile_find(_col_path, _x, _y, _bitfield);
 		_index = tile_get_index(_tile);
 		_width = scr_tile_get_width(_tile, _index, _y);
 		
@@ -223,18 +233,18 @@ function scr_tile_find_hor(_col_path, _x, _y, _dir){
 	return [_surface, _angle, _tile, (_x & ~_snap), (_y & ~_snap)];
 }
 
-///@function scr_tile_find_vert(collision path, x, y, direction)
-function scr_tile_find_vert(_col_path, _x, _y, _dir){
+///@function scr_tile_find_vert(collision path, x, y, direction, tile types)
+function scr_tile_find_vert(_col_path, _x, _y, _dir, _bitfield){
 	var _snap = TILE_SIZE - 1;
 	var _shift = TILE_SIZE * _dir;
-	var _tile = scr_tile_find(_col_path, _x, _y);
+	var _tile = scr_tile_find(_col_path, _x, _y, _bitfield);
 	var _index = tile_get_index(_tile);
 	var _height = scr_tile_get_height(_tile, _index, _x);
 
 	// If an empty tile is found, extend
 	if !_height {
 		_y += _shift;
-		_tile = scr_tile_find(_col_path, _x, _y);
+		_tile = scr_tile_find(_col_path, _x, _y, _bitfield);
 		_index = tile_get_index(_tile);
 		_height = scr_tile_get_height(_tile, _index, _x);
 	}
@@ -243,7 +253,7 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 	else if (_height == TILE_SIZE) {
 		var _prev = [_tile, _index];
 		_y -= _shift;
-		_tile = scr_tile_find(_col_path, _x, _y);
+		_tile = scr_tile_find(_col_path, _x, _y, _bitfield);
 		_index = tile_get_index(_tile);
 		_height = scr_tile_get_height(_tile, _index, _x);
 		
@@ -280,11 +290,11 @@ function scr_tile_find_vert(_col_path, _x, _y, _dir){
 	return [_surface, _angle, _tile, (_x & ~_snap), (_y & ~_snap)];
 }
 
-///@function scr_tile_find_hor2(collision path, x1, y1, x2, y2, direction)
-function scr_tile_find_hor2(_col_path, _x1, _y1, _x2, _y2, _dir){
+///@function scr_tile_find_hor2(collision path, x1, y1, x2, y2, direction, tile types)
+function scr_tile_find_hor2(_col_path, _x1, _y1, _x2, _y2, _dir, _bitfield){
 	var _surface, _angle, _data, _cellx, _celly, _side;
-	var _tile1 = scr_tile_find_hor(_col_path, _x1, _y1, _dir);
-	var _tile2 = scr_tile_find_hor(_col_path, _x2, _y2, _dir);
+	var _tile1 = scr_tile_find_hor(_col_path, _x1, _y1, _dir, _bitfield);
+	var _tile2 = scr_tile_find_hor(_col_path, _x2, _y2, _dir, _bitfield);
 
 	// Use closest tile (Multiply by _dir to get the correct closest distance, when considering _dir == -1)
 	if ((_tile1[0] - _x1) * _dir <= (_tile2[0] - _x2) * _dir) {
@@ -310,11 +320,11 @@ function scr_tile_find_hor2(_col_path, _x1, _y1, _x2, _y2, _dir){
 	return [_surface, _angle, _data, _cellx, _celly, _side];
 }
 
-///@function scr_tile_find_vert2(collision path, x1, y1, x2, y2, direction)
-function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir){
+///@function scr_tile_find_vert2(collision path, x1, y1, x2, y2, direction, tile types)
+function scr_tile_find_vert2(_col_path, _x1, _y1, _x2, _y2, _dir, _bitfield){
 	var _surface, _angle, _data, _cellx, _celly, _side;
-	var _tile1 = scr_tile_find_vert(_col_path, _x1, _y1, _dir);
-	var _tile2 = scr_tile_find_vert(_col_path, _x2, _y2, _dir);
+	var _tile1 = scr_tile_find_vert(_col_path, _x1, _y1, _dir, _bitfield);
+	var _tile2 = scr_tile_find_vert(_col_path, _x2, _y2, _dir, _bitfield);
 
 	// Use closest tile (Multiply by _dir to get the correct closest distance, when considering _dir == -1)
 	if ((_tile1[0] - _y1) * _dir <= (_tile2[0] - _y2) * _dir) {

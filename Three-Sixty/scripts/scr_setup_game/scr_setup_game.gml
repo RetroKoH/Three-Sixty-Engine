@@ -21,6 +21,11 @@ function scr_setup_macros(){
 	#macro COL_CEILING		2
 	#macro COL_WALL_L		3
 
+	// Tile type macro
+	#macro TILE_FULLSOLID	1
+	#macro TILE_TOPSOLID	2
+	#macro TILE_LRBSOLID	4
+
 	// Player Size macro
 	#macro HEIGHT_MAIN		$13	// Standard height (19)
 	#macro HEIGHT_SHORT		$F	// Tails' standing height (15)
