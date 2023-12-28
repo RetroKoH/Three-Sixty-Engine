@@ -286,8 +286,6 @@ function scr_player_check_floors_air(){
 		_dir = y_spd > 0 ? COL_FLOOR : COL_CEILING;
 
 	var _xp = floor(x_pos), _yp = floor(y_pos);
-
-// NOTE: There is a small bug caused by triggering the push sensor on quarterpipes that causes a zip (Mainly Upper Left)
 	switch(_dir){
 		case COL_FLOOR:
 		{
@@ -640,7 +638,7 @@ function scr_player_check_floors_air(){
 					y_pos = _surface + col_height;
 					
 					//if (_angle > $40 and _angle <= $61) or (_angle > $A0 and _angle <= $BF){
-					if !(_angle > $60 and _angle < $A0){
+					if (!(_angle > $60 and _angle < $A0) and _angle != 0){
 						// Land on it if its angle steep enough
 						col_angle	= _angle;
 						col_angle_data = global.angle_data[col_angle];
