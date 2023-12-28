@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Debug",
-    "path": "folders/Tile Sets/Debug.yy",
+    "path": "folders/Zones/0. Collision/Debug.yy",
   },
   "parentObjectId": null,
   "persistent": false,

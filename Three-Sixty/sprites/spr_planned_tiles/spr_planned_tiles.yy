@@ -25,8 +25,8 @@
   "nineSlice": null,
   "origin": 0,
   "parent": {
-    "name": "Tile Sets",
-    "path": "folders/Tile Sets.yy",
+    "name": "0. Collision",
+    "path": "folders/Zones/0. Collision.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
