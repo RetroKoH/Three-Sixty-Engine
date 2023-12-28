@@ -22,11 +22,11 @@ function scr_ctrl_player_debug(){
 	y_spd = (key_down - key_up) * 3.0625;
 
 	// Wall Tile Collision
-	scr_check_walls();
+	scr_check_walls_debug();
 	x_pos += x_spd;
 
 	// Floor Tile Collision
-	scr_check_floors();
+	scr_check_floors_debug();
 	y_pos += y_spd;
 }
 

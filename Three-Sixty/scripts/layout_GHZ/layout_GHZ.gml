@@ -1,6 +1,6 @@
-// Collision layouts for GHZ tiles
-// Used in the chunk viewer
-function layout_GHZ(_plane,_tile_ID,_tile_x,_tile_y){ 
+///@function layout_GHZ(collision plane, tile ID, cell x, cell y)
+function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
+	// Collision layouts for GHZ tiles (Used in the chunk viewer)
 	switch(_tile_ID) {
 		case 3:
 		{

@@ -6,7 +6,7 @@ function scr_setup_game(){
 	scr_setup_animations();
 
 	random_set_seed(randomise());
-	room_goto(room_test);
+	room_goto(zone_GHZ1);
 }
 
 ///@function scr_setup_macros()
@@ -34,14 +34,17 @@ function scr_setup_macros(){
 
 ///@function scr_setup_globals()
 function scr_setup_globals(){
-	globalvar DEBUG, PLAYER, D_TILE;
+	globalvar DEBUG, STAGE, PLAYER, D_TILE;
 	
-	DEBUG = false;
+	DEBUG = true;
 }
 
 ///@function scr_setup_collision()
 function scr_setup_collision(){
 	global.map_id		= array_create(2, -1);
+	global.spr_id		= -1;
+	global.chunks_id	= -1;
+	global.chunks_count	= 0;
 
 	global.tile_heights	= [];
 	global.tile_widths	= [];
