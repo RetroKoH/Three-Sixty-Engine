@@ -36,7 +36,7 @@ function scr_setup_macros(){
 function scr_setup_globals(){
 	globalvar DEBUG, STAGE, PLAYER, D_TILE;
 	
-	DEBUG = true;
+	DEBUG = false;
 }
 
 ///@function scr_setup_collision()
