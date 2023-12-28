@@ -35,4 +35,6 @@ pushing			= false;
 jumping			= false;
 landing			= false;
 
+forced_roll		= false;
+
 scr_gfunc_anim_init(true, global.AnimTable_PlayerSonic, 0);

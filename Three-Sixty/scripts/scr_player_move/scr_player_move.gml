@@ -113,22 +113,27 @@ function scr_player_move_rolling(){
 	else if (inertia > 0)
 		inertia = (inertia >= _fric) ? inertia - _fric : 0;		// Friction when rolling right
 
-	// If stopped
-	if (inertia == 0){
-		rolling		=  false;
-		y_pos		-= col_height_def - col_height;
-		col_height	=  col_height_def;
-		col_width	=  WIDTH_MAIN;
-		anim_ID		=  ANI_PLAYER.IDLE;
-	}
-
 	// Apply to x and y speeds using the acquired gsp. Rolling has a speed cap of 16 pixels/step.
 	x_spd	= inertia * col_angle_data.cosine;
 	y_spd	= inertia * -(col_angle_data.sine);
 
-	// Should this cap inertia in some manner instead?
-	if (x_spd > 16)			x_spd = 16;
-	else if (x_spd < -16)	x_spd = -16;
+	// Should this cap inertia instead of x speed?
+	x_spd = clamp(x_spd, -16, 16);
+	
+	// If stopped and not forced to roll
+	if !(forced_roll){
+		if (abs(inertia) < 0.5){
+			rolling		=  false;
+			y_pos		-= col_height_def - col_height;
+			col_height	=  col_height_def;
+			col_width	=  WIDTH_MAIN;
+			anim_ID		=  ANI_PLAYER.IDLE;
+		}
+	}
+	
+	// If forced to roll, continue rolling
+	else if (inertia == 0)
+		inertia = 2 * orientation;
 }
 
 ///@function scr_player_slope_resist(rolling)
