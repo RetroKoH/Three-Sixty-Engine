@@ -1342,21 +1342,20 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 		{
 			repeat(7) { tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++; }
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x-=7; _tile_y++;
-			repeat(4) { tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++; }
-			tilemap_set_xy_flipped(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_mirrored(global.map_id[_plane],$71,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_mirrored(global.map_id[_plane],$72,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_mirrored(global.map_id[_plane],$73,_tile_x,_tile_y);
+			repeat(5) { tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++; }
+			tilemap_set_mirrored(global.map_id[_plane],$71,_tile_x,_tile_y); _tile_x++; // 147 (X/Y Flipped)
+			tilemap_set_mirrored(global.map_id[_plane],$72,_tile_x,_tile_y); _tile_x++; // 146 (X/Y Flipped)
+			tilemap_set_mirrored(global.map_id[_plane],$73,_tile_x,_tile_y); // 123 (X/Y Flipped)
 			if _plane = 1 {
 				_tile_x-=4; _tile_y++;
-				tilemap_set_xy_flipped(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-				tilemap_set_mirrored(global.map_id[_plane],$70,_tile_x,_tile_y); _tile_x-=2; _tile_y++;
 				tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-				tilemap_set_mirrored(global.map_id[_plane],$6F,_tile_x,_tile_y); _tile_x--; _tile_y++;
+				tilemap_set_mirrored(global.map_id[_plane],$70,_tile_x,_tile_y); _tile_x-=2; _tile_y++; // 148 (X/Y Flipped)
 				tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-				tilemap_set_mirrored(global.map_id[_plane],$6E,_tile_x,_tile_y); _tile_x--; _tile_y++;
+				tilemap_set_mirrored(global.map_id[_plane],$6F,_tile_x,_tile_y); _tile_x--; _tile_y++; // 149 (X/Y Flipped)
 				tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-				tilemap_set_mirrored(global.map_id[_plane],$6D,_tile_x,_tile_y); _tile_x--; _tile_y++;
+				tilemap_set_mirrored(global.map_id[_plane],$6E,_tile_x,_tile_y); _tile_x--; _tile_y++; // 150 (X/Y Flipped)
+				tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
+				tilemap_set_mirrored(global.map_id[_plane],$6D,_tile_x,_tile_y); _tile_x--; _tile_y++; // 151 (NEW from S1) (X/Y Flipped) 
 				tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
 				tilemap_set_xy_flipped(global.map_id[_plane],$6D,_tile_x,_tile_y); _tile_x--; _tile_y++;
 				tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;

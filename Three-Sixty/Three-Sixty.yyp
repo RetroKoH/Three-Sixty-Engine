@@ -34,11 +34,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"0. Collision","folderPath":"folders/Zones/0. Collision.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Animated Art","folderPath":"folders/Zones/1. GHZ/Animated Art.yy",},
   ],
-  "IncludedFiles": [
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"anglemap.bin","CopyToMask":-1,"filePath":"datafiles",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"heightmap.bin","CopyToMask":-1,"filePath":"datafiles",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"widthmap.bin","CopyToMask":-1,"filePath":"datafiles",},
-  ],
+  "IncludedFiles": [],
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
@@ -105,7 +101,6 @@
     {"id":{"name":"bkg_GHZ04","path":"sprites/bkg_GHZ04/bkg_GHZ04.yy",},},
     {"id":{"name":"spr_sonic_lookup","path":"sprites/spr_sonic_lookup/spr_sonic_lookup.yy",},},
     {"id":{"name":"aniart_GHZ1","path":"sprites/aniart_GHZ1/aniart_GHZ1.yy",},},
-    {"id":{"name":"scr_load_col_maps","path":"scripts/scr_load_col_maps/scr_load_col_maps.yy",},},
     {"id":{"name":"spr_planned_tiles","path":"sprites/spr_planned_tiles/spr_planned_tiles.yy",},},
     {"id":{"name":"spr_sonic_walk","path":"sprites/spr_sonic_walk/spr_sonic_walk.yy",},},
     {"id":{"name":"spr_sonic_mask","path":"sprites/spr_sonic_mask/spr_sonic_mask.yy",},},

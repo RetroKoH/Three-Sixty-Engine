@@ -72,7 +72,6 @@
     {"name":"spr_debug_player","order":6,"path":"sprites/spr_debug_player/spr_debug_player.yy",},
     {"name":"bkg_GHZ04","order":4,"path":"sprites/bkg_GHZ04/bkg_GHZ04.yy",},
     {"name":"spr_sonic_lookup","order":12,"path":"sprites/spr_sonic_lookup/spr_sonic_lookup.yy",},
-    {"name":"scr_load_col_maps","order":3,"path":"scripts/scr_load_col_maps/scr_load_col_maps.yy",},
     {"name":"spr_planned_tiles","order":1,"path":"sprites/spr_planned_tiles/spr_planned_tiles.yy",},
     {"name":"spr_sonic_walk","order":21,"path":"sprites/spr_sonic_walk/spr_sonic_walk.yy",},
     {"name":"spr_sonic_dash","order":5,"path":"sprites/spr_sonic_dash/spr_sonic_dash.yy",},
