@@ -169,7 +169,7 @@ function scr_tile_find(_col_path, _x, _y, _bitfield){
 		var _type = 1 << (tile_get_index(_tile) >> 8);
 
 		// If we are looking for this tile type, return the tile.
-		if (_type & _bitfield)		
+		if (_type & _bitfield)
 			return _tile;
 		else
 			return 0;
