@@ -30,5 +30,5 @@ function scr_setup_level_layout(_zone = 0){
 				}
 			}
 		}
-	} show_message(global.chunks_count);
+	}
 }
