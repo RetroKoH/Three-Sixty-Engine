@@ -389,7 +389,7 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 		case 42:
 		{
 			_tile_y+=7;
-			tilemap_set_xy_flipped(global.map_id[_plane],$6D,_tile_x,_tile_y);
+			tilemap_set_mirrored(global.map_id[_plane],$97,_tile_x,_tile_y);
 		}
 		break;
 		//-------------------------------------------------------
@@ -403,15 +403,15 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 		//-------------------------------------------------------
 		case 44:
 		{
-			tilemap_set_xy_flipped(global.map_id[_plane],$6E,_tile_x,_tile_y); _tile_y++;
-			tilemap_set_xy_flipped(global.map_id[_plane],$6F,_tile_x,_tile_y); _tile_y++;
-			tilemap_set_mirrored(global.map_id[_plane],$001,_tile_x,_tile_y);
-			tilemap_set_xy_flipped(global.map_id[_plane],$70,_tile_x+1,_tile_y); _tile_y++;
+			tilemap_set_mirrored(global.map_id[_plane],$96,_tile_x,_tile_y); _tile_y++;
+			tilemap_set_mirrored(global.map_id[_plane],$95,_tile_x,_tile_y); _tile_y++;
+			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y);
+			tilemap_set_mirrored(global.map_id[_plane],$94,_tile_x+1,_tile_y); _tile_y++;
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_mirrored(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_xy_flipped(global.map_id[_plane],$171,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_xy_flipped(global.map_id[_plane],$172,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_xy_flipped(global.map_id[_plane],$173,_tile_x,_tile_y); _tile_x-=3; _tile_y++;
+			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
+			tilemap_set_mirrored(global.map_id[_plane],$193,_tile_x,_tile_y); _tile_x++;
+			tilemap_set_mirrored(global.map_id[_plane],$192,_tile_x,_tile_y); _tile_x++;
+			tilemap_set_mirrored(global.map_id[_plane],$17B,_tile_x,_tile_y); _tile_x-=3; _tile_y++;
 			repeat(4) {tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++;}
 			repeat(3)
 			{	tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y);
@@ -823,7 +823,7 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 			tilemap_set_mirrored(global.map_id[_plane],$8F,_tile_x,_tile_y); _tile_x++;
 			tilemap_set_mirrored(global.map_id[_plane],$8E,_tile_x,_tile_y); _tile_x++;
 			tilemap_set_mirrored(global.map_id[_plane],$8D,_tile_x,_tile_y); _tile_x+=2;
-			tilemap_set_flipped(global.map_id[_plane],$35,_tile_x,_tile_y); _tile_x-=7; _tile_y++; // $36 WILL BE IN THE NEXT CHUNK
+			tilemap_set_flipped(global.map_id[_plane],$35,_tile_x,_tile_y); _tile_x-=7; _tile_y++;
 
 			repeat(5) { tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++; }
 			tilemap_set_mirrored(global.map_id[_plane],$8C,_tile_x,_tile_y); _tile_x++;
@@ -991,10 +991,9 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 		//-------------------------------------------------------
 		case 138:
 		{
-			repeat(3) { tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++; }
-			tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_mirrored(global.map_id[_plane],$117,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_mirrored(global.map_id[_plane],$115,_tile_x,_tile_y); _tile_x++;
+			repeat(4) { tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++; }
+			tilemap_set_mirrored(global.map_id[_plane],$11C,_tile_x,_tile_y); _tile_x++;	// Adjusted from original
+			tilemap_set_mirrored(global.map_id[_plane],$11B,_tile_x,_tile_y); _tile_x++;	// Adjusted from original
 			tilemap_set_mirrored(global.map_id[_plane],$11D,_tile_x,_tile_y); _tile_x-=6; _tile_y++;
 			repeat(6) { tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++; }
 			tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++;
@@ -1299,7 +1298,7 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 			_tile_x+=7; _tile_y++;
 			repeat(6) { tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_y++; }
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x--;
-			tilemap_set_flipped(global.map_id[_plane],$6D,_tile_x,_tile_y);
+			tilemap_set(global.map_id[_plane],$97,_tile_x,_tile_y);
 		}
 		break;
 		//-------------------------------------------------------
@@ -1311,7 +1310,7 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 			repeat(2) { tilemap_set_mirrored(global.map_id[_plane],$112,_tile_x,_tile_y); _tile_x++; }
 			tilemap_set_mirrored(global.map_id[_plane],$111,_tile_x,_tile_y); _tile_x-=5; _tile_y++;
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
-			repeat(5) { tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++; }
+			repeat(6) { tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++; }
 			tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x-=7; _tile_y++;
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x+=6;
 			tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++;
@@ -1329,9 +1328,9 @@ function layout_GHZ(_plane, _tile_ID, _tile_x, _tile_y){
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x-=2; _tile_y++;
 			tilemap_set(global.map_id[_plane],$94,_tile_x,_tile_y); _tile_x++;
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x-=4; _tile_y++;
-			tilemap_set_flipped(global.map_id[_plane],$173,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_flipped(global.map_id[_plane],$172,_tile_x,_tile_y); _tile_x++;
-			tilemap_set_flipped(global.map_id[_plane],$171,_tile_x,_tile_y); _tile_x++;
+			tilemap_set(global.map_id[_plane],$17B,_tile_x,_tile_y); _tile_x++;
+			tilemap_set(global.map_id[_plane],$192,_tile_x,_tile_y); _tile_x++;
+			tilemap_set(global.map_id[_plane],$193,_tile_x,_tile_y); _tile_x++;
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x++;
 			tilemap_set(global.map_id[_plane],$001,_tile_x,_tile_y); _tile_x-=6; _tile_y++;
 			repeat(3) { tilemap_set(global.map_id[_plane],$101,_tile_x,_tile_y); _tile_x++; }

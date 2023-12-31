@@ -18,8 +18,8 @@ function scr_ctrl_player(){
 ///@function scr_ctrl_player_debug()
 function scr_ctrl_player_debug(){
 	// Apply speeds
-	x_spd = (key_right - key_left) * 3.0625;
-	y_spd = (key_down - key_up) * 3.0625;
+	x_spd = (key_right - key_left) * 8.0625;
+	y_spd = (key_down - key_up) * 8.0625;
 
 	// Wall Tile Collision
 	scr_check_walls_debug();

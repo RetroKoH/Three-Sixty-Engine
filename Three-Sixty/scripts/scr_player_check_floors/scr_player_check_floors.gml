@@ -478,7 +478,7 @@ function scr_player_check_floors_air(){
 						col_angle_data = global.angle_data[col_angle];
 						
 						// This section recoded courtesy of Orbinaut Framework
-						// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
+						// Always use horizontal velocity
 						y_spd = 0;
 						inertia = x_spd;
 					
@@ -726,7 +726,7 @@ function scr_player_check_floors_air(){
 						col_angle_data = global.angle_data[col_angle];
 
 						// This section recoded courtesy of Orbinaut Framework
-						// Flat floor (If floor is within 22.5 degrees, use horizontal velocity)
+						// Always use horizontal velocity
 						y_spd = 0;
 						inertia = x_spd;
 					

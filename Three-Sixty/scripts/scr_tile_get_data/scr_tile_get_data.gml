@@ -4,9 +4,9 @@ function scr_check_walls_debug(){
 
 	// If moving right
 	if (x_spd > 0) {
-		var _pos = x_pos + col_push;						// Collision anchor
-		var _tile = scr_tile_find_hor(col_path, _pos, y + 8, 1);
-		var _surface = _tile[0] - 1;						// Get the actual left side of the tile
+		var _pos = x_pos + col_push;					// Collision anchor
+		var _tile = scr_tile_find_hor(col_path, _pos, y + 8, 1, TILE_FULLSOLID|TILE_LRBSOLID);
+		var _surface = _tile[0] - 1;					// Get the actual left side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos >= _surface) {
@@ -35,9 +35,9 @@ function scr_check_walls_debug(){
 
 	// If moving left
 	else if (x_spd < 0) {
-		var _pos = x_pos - col_push;						// Collision anchor
-		var _tile = scr_tile_find_hor(col_path, _pos, y + 8, -1);
-		var _surface = _tile[0] + 1;						// Get the actual right side of the tile
+		var _pos = x_pos - col_push;					// Collision anchor
+		var _tile = scr_tile_find_hor(col_path, _pos, y + 8, -1, TILE_FULLSOLID|TILE_LRBSOLID);
+		var _surface = _tile[0] + 1;					// Get the actual right side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos <= _surface) {
@@ -90,8 +90,8 @@ function scr_check_floors_debug(){
 		D_TILE.color[1] = c_white;
 
 		var _pos = (y_pos + col_height);	// Collision anchor
-		var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1);	// Get the actual top side of the tile
-		var _surface = _tile[0] - 1;
+		var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, 1, TILE_FULLSOLID|TILE_TOPSOLID);
+		var _surface = _tile[0] - 1;		// Get the actual top side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos >= _surface) {
@@ -129,8 +129,8 @@ function scr_check_floors_debug(){
 		D_TILE.color[0] = c_white;
 
 		var _pos = (y_pos - col_height);	// Collision anchor
-		var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1);	// Get the actual bottom side of the tile
-		var _surface = _tile[0] + 1;
+		var _tile = scr_tile_find_vert2(col_path, x-col_width, _pos, x+col_width, _pos, -1, TILE_FULLSOLID|TILE_LRBSOLID);
+		var _surface = _tile[0] + 1;		// Get the actual bottom side of the tile
 
 		// Check if we are at/within the tile's actual surface
 		if (_pos <= _surface) {
